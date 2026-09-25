@@ -1,58 +1,149 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { navigation } from "@/app/config/navigation";
+import Image from "next/image";
 import styles from "./Header.module.css";
 
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Products", href: "/capabilities" },
+  { label: "Affiliations", href: "#affiliations" },
+  { label: "Careers", href: "#careers" },
+  { label: "Contact", href: "/contact" },
+];
+
+const focusLinks = [
+  { label: "Aerospace", href: "/capabilities" },
+  { label: "Defence", href: "/platforms" },
+  { label: "Advanced Systems", href: "/capabilities" },
+  { label: "Petrochemical", href: "/capabilities" },
+];
+
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <Link href="/" className={styles.brand}>
-          Defence
+        {/* Brand / Logo */}
+        <Link href="/" className={styles.brand} aria-label="Home">
+          <Image
+            src="/images/logo-white-zoom.webp"
+            alt="Logo"
+            width={44}
+            height={44}
+            priority
+            className={styles.logoImage}
+          />
+          <span className={styles.brandName}>ANUVYOM</span>
         </Link>
 
-        <nav className={styles.nav} aria-label="Primary">
-          <ul className={styles.navList}>
-            {navigation.map((item) =>
-              item.children ? (
-                <li key={item.href} className={styles.navItem}>
-                  <Link href={item.href} className={styles.navLink}>
-                    {item.label}
-                  </Link>
-
-                  <div className={styles.dropdown}>
-                    <ul className={styles.dropdownList}>
-                      {item.children.map((child) => (
-                        <li key={child.href}>
-                          <Link href={child.href} className={styles.dropdownLink}>
-                            <span className={styles.dropdownLabel}>
-                              {child.label}
-                            </span>
-                            {child.description ? (
-                              <span className={styles.dropdownDescription}>
-                                {child.description}
-                              </span>
-                            ) : null}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </li>
-              ) : (
-                <li key={item.href} className={styles.navItem}>
-                  <Link href={item.href} className={styles.navLink}>
-                    {item.label}
-                  </Link>
-                </li>
-              )
-            )}
-          </ul>
-        </nav>
-
-        <Link href="/contact" className={styles.cta}>
-          Request a briefing
-        </Link>
+        {/* Right Actions: 2 Separate Buttons (LETS TALK + Hamburger Menu) */}
+        <div className={styles.actions}>
+          <Link href="/contact" className={styles.talkButton}>
+            LETS TALK
+          </Link>
+          <button
+            type="button"
+            className={styles.menuButton}
+            onClick={() => setIsOpen((prev) => !prev)}
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isOpen}
+          >
+            <span className={`${styles.menuBar} ${styles.menuBarTop}`} />
+            <span className={`${styles.menuBar} ${styles.menuBarMid}`} />
+            <span className={`${styles.menuBar} ${styles.menuBarBot}`} />
+          </button>
+        </div>
       </div>
+
+      {/* Slide-out Navigation Drawer / Overlay */}
+      {isOpen && (
+        <div className={styles.overlay} onClick={() => setIsOpen(false)}>
+          <div
+            className={styles.drawer}
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site Navigation"
+          >
+            <div className={styles.drawerHeader}>
+              <span className={styles.drawerBrand}>NAVIGATION</span>
+              <button
+                type="button"
+                className={styles.closeButton}
+                onClick={() => setIsOpen(false)}
+                aria-label="Close navigation"
+              >
+                &times;
+              </button>
+            </div>
+
+            <div className={styles.drawerContent}>
+              <div className={styles.drawerCol}>
+                <p className={styles.drawerHeading}>PAGES</p>
+                <ul className={styles.drawerList}>
+                  {navLinks.map((item) => (
+                    <li key={item.label} className={styles.drawerItem}>
+                      <Link
+                        href={item.href}
+                        className={styles.drawerLink}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className={styles.drawerCol}>
+                <p className={styles.drawerHeading}>FOCUS</p>
+                <ul className={styles.drawerList}>
+                  {focusLinks.map((item) => (
+                    <li key={item.label} className={styles.drawerItem}>
+                      <Link
+                        href={item.href}
+                        className={styles.drawerLink}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className={styles.drawerFooter}>
+              <Link
+                href="/contact"
+                className={styles.drawerCta}
+                onClick={() => setIsOpen(false)}
+              >
+                GET A QUOTE &rarr;
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
+

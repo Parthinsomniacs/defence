@@ -1,10 +1,17 @@
 .section {
-  padding: var(--space-xl) var(--space-md);
+  padding: var(--space-xl) 0;
 }
 
 .inner {
-  max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 100px;
+  padding: 50px;
+}
+
+@media (max-width: 1024px) {
+  .inner {
+    margin: 0 clamp(1rem, 4vw, 2.5rem);
+    padding: 40px clamp(1rem, 3vw, 30px);
+  }
 }
 
 .eyebrow {
