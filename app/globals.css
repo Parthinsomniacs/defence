@@ -27,8 +27,8 @@
   --radius-lg: 24px;
 
   /* Typography */
-  --font-primary: var(--font-geist-sans), sans-serif;
-  --font-display: var(--font-boldonse), sans-serif;
+  --font-primary: var(--font-geist-sans);
+  --font-display: var(--font-boldonse);
 
   /* Selection */
   --color-selection-bg: #f5f5f5;
