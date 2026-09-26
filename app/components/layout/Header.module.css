@@ -3,10 +3,12 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index: 300;
 }
 
 .inner {
+  position: relative;
+  z-index: 310;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,6 +25,8 @@
 
 /* --- Brand / Logo --- */
 .brand {
+  position: relative;
+  z-index: 320;
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -47,6 +51,8 @@
 
 /* --- Right Actions: 2 Separate Buttons (LETS TALK + Hamburger) --- */
 .actions {
+  position: relative;
+  z-index: 320;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem; /* Minor space between the 2 buttons */
@@ -55,19 +61,16 @@
 .menuButton {
   position: relative;
   display: inline-flex;
+  border-radius: 10px;
   width: 40px;
   height: 40px;
   background-color: #ffffff;
   border: 0;
-  border-radius: 9999px;
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.menuButton:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.18);
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 /* Full-width bar; top and bottom are half-width and aligned to opposite edges. */
@@ -79,14 +82,17 @@
   height: 2px;
   background-color: var(--color-surface-deep);
   border-radius: 2px;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), width 0.3s ease, opacity 0.2s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    width 0.3s ease,
+    opacity 0.2s ease;
 }
 
 /* Top: right-aligned, 50% width */
 .menuBarTop {
   transform-origin: center;
   transform: translate(0%, -6px);
-  width: 9px;
+  width: 12px;
 }
 
 /* Middle: full width */
@@ -97,7 +103,7 @@
 
 /* Bottom: left-aligned, 50% width */
 .menuBarBot {
-  transform: translate(-100%, 6px);
+  transform: translate(-100%, 4px);
   width: 9px;
 }
 
@@ -117,16 +123,21 @@
 }
 
 /* --- Navigation Panel / Overlay (slides down from the top) --- */
+/* Visibility, backdrop and slide are animated with GSAP (see Header.tsx). */
 .overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(8px);
   z-index: 100;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  animation: fadeIn 0.2s ease;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.overlayOpen {
+  pointer-events: auto;
 }
 
 .drawer {
@@ -136,42 +147,11 @@
   max-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: clamp(1.5rem, 4vw, 3rem);
+  /* Background starts at top:0, but content sits below the header (80px). */
+  padding: calc(var(--header-height) + clamp(1rem, 2vw, 1.5rem))
+    clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3rem);
   box-sizing: border-box;
   overflow-y: auto;
-  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.drawerHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.drawerBrand {
-  font-family: var(--font-primary);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: #a3a3a3;
-  text-transform: uppercase;
-}
-
-.closeButton {
-  background: transparent;
-  border: 0;
-  color: #ffffff;
-  font-size: 2rem;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  transition: color 0.15s ease;
-}
-
-.closeButton:hover {
-  color: var(--color-accent-strong);
 }
 
 .drawerContent {
@@ -217,7 +197,9 @@
   font-size: 1.125rem;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.18s ease, transform 0.18s ease;
+  transition:
+    color 0.18s ease,
+    transform 0.18s ease;
   display: inline-block;
 }
 
@@ -245,20 +227,12 @@
   text-transform: uppercase;
   border-radius: 9999px;
   text-decoration: none;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .drawerCta:hover {
   background-color: #f0f0f0;
   transform: translateY(-2px);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideDown {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(0); }
 }
