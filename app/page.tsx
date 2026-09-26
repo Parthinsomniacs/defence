@@ -1,11 +1,13 @@
 import Hero from "./(home)/sections/Hero";
-import Highlights from "./(home)/sections/Highlights";
+import AboutSection from "./(home)/sections/AboutSection";
+import BusinessesSection from "./(home)/sections/BusinessesSection";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Highlights />
+      <AboutSection />
+      <BusinessesSection />
     </>
   );
 }

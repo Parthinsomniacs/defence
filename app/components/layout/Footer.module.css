@@ -62,8 +62,12 @@
   text-decoration: none;
 }
 
-.logoSvg {
+.logoImage {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
   flex-shrink: 0;
+  display: block;
 }
 
 .brandName {
