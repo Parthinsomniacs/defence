@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./CtaSection.module.css";
@@ -116,18 +117,28 @@ export default function CtaSection() {
 
                 {/* Window Body */}
                 <div className={styles.windowBody}>
-                  {/* Glowing Radar / Orbit Hero Widget */}
+                  {/* Glowing Radar / Orbit Hero Widget with Section Image */}
                   <div className={styles.globeTelemetryHero}>
-                    <div className={styles.radarGlow} />
-                    <span className={styles.globeTag}>
-                      [ AUTONOMOUS MISSION THEATER ]
-                    </span>
-                    <h4 className={styles.globeHeadline}>
-                      Turn Sovereign Ambition Into Capability
-                    </h4>
-                    <p className={styles.globeSubtext}>
-                      Multi-domain telemetry &amp; autonomous UAV coordination
-                    </p>
+                    <Image
+                      src="/images/cta-mission-theater.jpg"
+                      alt="Autonomous UAV & Multi-Domain Defence Telemetry"
+                      fill
+                      className={styles.heroImg}
+                      sizes="(max-width: 768px) 100vw, 520px"
+                      priority
+                    />
+                    <div className={styles.heroOverlay} aria-hidden="true" />
+                    <div className={styles.heroContent}>
+                      <span className={styles.globeTag}>
+                        [ AUTONOMOUS MISSION THEATER ]
+                      </span>
+                      <h4 className={styles.globeHeadline}>
+                        Turn Sovereign Ambition Into Capability
+                      </h4>
+                      <p className={styles.globeSubtext}>
+                        Multi-domain telemetry &amp; autonomous UAV coordination
+                      </p>
+                    </div>
                   </div>
 
                   {/* Operational Telemetry Metrics */}

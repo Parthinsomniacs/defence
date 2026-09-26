@@ -241,50 +241,61 @@
 .globeTelemetryHero {
   position: relative;
   width: 100%;
-  height: 180px;
+  height: 220px;
   border-radius: 14px;
   overflow: hidden;
-  background: radial-gradient(
-      circle at 50% 120%,
-      rgba(231, 66, 64, 0.25) 0%,
-      rgba(10, 11, 15, 0.95) 70%
-    ),
-    #0c0d12;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   text-align: center;
-  padding: 20px;
+  padding: 20px 16px;
+  background-color: #0c0d12;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.7);
 }
 
-.radarGlow {
+.heroImg {
+  object-fit: cover;
+  object-position: center 40%;
+  z-index: 1;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaCard:hover .heroImg {
+  transform: scale(1.05);
+}
+
+.heroOverlay {
   position: absolute;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-  animation: radarRotate 20s linear infinite;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 11, 15, 0.1) 0%,
+    rgba(10, 11, 15, 0.45) 45%,
+    rgba(10, 11, 15, 0.88) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
 }
 
-@keyframes radarRotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.heroContent {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .globeTag {
   font-family: var(--font-primary);
   font-size: 0.6875rem;
-  color: #e74240;
+  color: #ff5252;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 6px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 .globeHeadline {
@@ -294,13 +305,15 @@
   font-weight: 700;
   color: #ffffff;
   letter-spacing: -0.01em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
 }
 
 .globeSubtext {
   margin: 0;
   font-family: var(--font-primary);
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 /* Metrics Row */
