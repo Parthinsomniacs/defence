@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./Footer.module.css";
 
 const navigationLinks = [
@@ -33,18 +34,13 @@ export default function Footer() {
           {/* Brand Column */}
           <div className={styles.brandCol}>
             <Link href="/" className={styles.brandLogo} aria-label="Anuvyom Home">
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 28 28"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={styles.logoSvg}
-                aria-hidden="true"
-              >
-                <path d="M4 6L12 14L4 22V6Z" fill="#F04438" />
-                <path d="M13 6L21 14L13 22V6Z" fill="#FFFFFF" />
-              </svg>
+              <Image
+                src="/images/logo-white-zoom.webp"
+                alt="Logo"
+                width={44}
+                height={44}
+                className={styles.logoImage}
+              />
               <span className={styles.brandName}>ANUVYOM</span>
             </Link>
 
