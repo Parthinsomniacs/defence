@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { pageLinks, focusLinks } from "@/app/config/navigation";
+import AnimatedButton from "@/app/components/ui/AnimatedButton";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -41,12 +42,12 @@ export default function Header() {
 
         {/* Right Actions: 2 Separate Buttons (LETS TALK + Hamburger Menu) */}
         <div className={styles.actions}>
-          <Link href="/contact" className={styles.talkButton}>
+          <AnimatedButton href="/contact" size="sm">
             LETS TALK
-          </Link>
+          </AnimatedButton>
           <button
             type="button"
-            className={styles.menuButton}
+            className={`${styles.menuButton} ${isOpen ? styles.menuButtonActive : ""}`}
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={isOpen}

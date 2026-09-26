@@ -18,9 +18,10 @@
   --color-text-muted: #737373;
   --color-text-dim: #a8a8af;
 
-  /* Brand accent (single source for the red used across the site) */
-  --color-accent: #e74240;
-  --color-accent-strong: #f04438;
+  /* Brand accent (single source for the accent used across the site) */
+  --color-accent: #9af0ff;
+  --color-accent-strong: #4dd9ff;
+  --color-accent-light: #39c9ff;
 
   --color-border: rgba(255, 255, 255, 0.12);
   --color-border-subtle: rgba(255, 255, 255, 0.08);
