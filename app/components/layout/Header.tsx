@@ -3,23 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { pageLinks, focusLinks } from "@/app/config/navigation";
 import styles from "./Header.module.css";
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Products", href: "/capabilities" },
-  { label: "Affiliations", href: "#affiliations" },
-  { label: "Careers", href: "#careers" },
-  { label: "Contact", href: "/contact" },
-];
-
-const focusLinks = [
-  { label: "Aerospace", href: "/capabilities" },
-  { label: "Defence", href: "/platforms" },
-  { label: "Advanced Systems", href: "/capabilities" },
-  { label: "Petrochemical", href: "/capabilities" },
-];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -99,7 +84,7 @@ export default function Header() {
               <div className={styles.drawerCol}>
                 <p className={styles.drawerHeading}>PAGES</p>
                 <ul className={styles.drawerList}>
-                  {navLinks.map((item) => (
+                  {pageLinks.map((item) => (
                     <li key={item.label} className={styles.drawerItem}>
                       <Link
                         href={item.href}

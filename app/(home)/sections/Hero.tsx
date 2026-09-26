@@ -32,11 +32,11 @@ export default function Hero() {
           {/* Bottom Left Info & CTA */}
           <div className={styles.leftBlock}>
             <span className={styles.squareIndicator} aria-hidden="true" />
-            <h2 className={styles.headline}>
+            <p className={styles.headline}>
               ENGINEERING<br />
               STRATEGIC CAPABILITY<br />
               FOR THE NEXT ERA
-            </h2>
+            </p>
             <div className={styles.buttonGroup}>
               <Link href="/capabilities" className={styles.primaryButton}>
                 Explore Capabilities

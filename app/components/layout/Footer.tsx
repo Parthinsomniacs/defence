@@ -1,29 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import { pageLinks, focusLinks, socialLinks } from "@/app/config/navigation";
 import styles from "./Footer.module.css";
-
-const navigationLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Products", href: "/capabilities" },
-  { label: "Affiliations", href: "#affiliations" },
-  { label: "Careers", href: "#careers" },
-  { label: "Contact", href: "/contact" },
-];
-
-const focusLinks = [
-  { label: "Aerospace", href: "/capabilities" },
-  { label: "Defence", href: "/platforms" },
-  { label: "Advanced Systems", href: "/capabilities" },
-  { label: "Petrochemical", href: "/capabilities" },
-];
-
-const socialLinks = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "Facebook", href: "https://facebook.com" },
-  { label: "X", href: "https://x.com" },
-];
 
 export default function Footer() {
   return (
@@ -45,9 +23,9 @@ export default function Footer() {
             </Link>
 
             <p className={styles.brandDescription}>
-              Transforming ideas into memorable experiences through strategic design,
-              creative storytelling, and innovative digital solutions that deliver
-              measurable results.
+              Building strategic industrial capability across aerospace, defence,
+              advanced systems, and petrochemical sectors — engineered for the
+              missions that matter.
             </p>
 
             <div className={styles.brandCta}>
@@ -73,7 +51,7 @@ export default function Footer() {
                 </svg>
               </div>
               <p className={styles.addressText}>
-                Address - 123 Riverbend, California 94025, USA
+                Address - Add your registered office address here
               </p>
             </div>
           </div>
@@ -82,7 +60,7 @@ export default function Footer() {
           <div className={styles.column}>
             <h2 className={styles.columnHeading}>NAVIGATION</h2>
             <ul className={styles.linkList}>
-              {navigationLinks.map((item) => (
+              {pageLinks.map((item) => (
                 <li key={item.label} className={styles.linkItem}>
                   <Link href={item.href} className={styles.navLink}>
                     {item.label}
@@ -149,27 +127,8 @@ export default function Footer() {
             </div>
 
             <p className={styles.creditsLine}>
-              Designed by :{" "}
-              <a
-                href="https://webflow.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.agencyLink}
-              >
-                Flow Design Agency,
-              </a>
-            </p>
-
-            <p className={styles.creditsLine}>
-              Powered by :{" "}
-              <a
-                href="https://webflow.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.platformLink}
-              >
-                Webflow
-              </a>
+              &copy; {new Date().getFullYear()} Anuvyom Alliance Private Limited.
+              All rights reserved.
             </p>
           </div>
         </div>

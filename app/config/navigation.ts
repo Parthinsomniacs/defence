@@ -1,39 +1,35 @@
-export type NavChild = {
+export type NavLink = {
   label: string;
   href: string;
-  description?: string;
-};
-
-export type NavItem = {
-  label: string;
-  href: string;
-  children?: NavChild[];
 };
 
 /**
- * Single source of truth for the primary navigation.
- * Add a page here and it shows up in the header (and dropdowns) automatically.
+ * Single source of truth for site navigation.
+ * Used by both the Header (drawer) and the Footer.
  */
-export const navigation: NavItem[] = [
-  {
-    label: "About",
-    href: "/about",
-    children: [
-      { label: "Overview", href: "/about", description: "Who we are" },
-      { label: "Team", href: "/about/team", description: "The people behind the work" },
-      { label: "History", href: "/about/history", description: "Our journey so far" },
-    ],
-  },
-  {
-    label: "Capabilities",
-    href: "/capabilities",
-  },
-  {
-    label: "Platforms",
-    href: "/platforms",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
+
+// Primary pages
+export const pageLinks: NavLink[] = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Products", href: "/capabilities" },
+  { label: "Affiliations", href: "#affiliations" },
+  { label: "Careers", href: "#careers" },
+  { label: "Contact", href: "/contact" },
+];
+
+// Focus / sector areas
+export const focusLinks: NavLink[] = [
+  { label: "Aerospace", href: "/capabilities" },
+  { label: "Defence", href: "/platforms" },
+  { label: "Advanced Systems", href: "/capabilities" },
+  { label: "Petrochemical", href: "/capabilities" },
+];
+
+// Social profiles
+export const socialLinks: NavLink[] = [
+  { label: "Instagram", href: "https://instagram.com" },
+  { label: "LinkedIn", href: "https://linkedin.com" },
+  { label: "Facebook", href: "https://facebook.com" },
+  { label: "X", href: "https://x.com" },
 ];

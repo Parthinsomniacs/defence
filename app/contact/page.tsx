@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Section from "@/app/components/ui/Section";
 
 export const metadata: Metadata = {
-  title: "Contact | Defence Systems",
+  title: "Contact",
   description: "Request a briefing.",
 };
 

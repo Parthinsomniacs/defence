@@ -4,18 +4,14 @@
   left: 0;
   right: 0;
   z-index: 50;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  background-color: rgba(12, 13, 16, 0.35);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
 }
 
 .inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 100px;
-  padding: 20px 50px;
+  margin: 0 var(--layout-margin);
+  padding: 20px var(--layout-padding);
 }
 
 @media (max-width: 1024px) {
@@ -105,7 +101,7 @@
 .menuBar {
   display: block;
   height: 2px;
-  background-color: #F04438;
+  background-color: var(--color-accent-strong);
   border-radius: 2px;
   transition: transform 0.2s ease, width 0.2s ease;
 }
@@ -176,7 +172,7 @@
 }
 
 .closeButton:hover {
-  color: #F04438;
+  color: var(--color-accent-strong);
 }
 
 .drawerContent {
@@ -227,7 +223,7 @@
 }
 
 .drawerLink:hover {
-  color: #F04438;
+  color: var(--color-accent-strong);
   transform: translateX(4px);
 }
 

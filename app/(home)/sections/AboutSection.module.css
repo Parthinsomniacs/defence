@@ -1,14 +1,14 @@
 .section {
   position: relative;
-  background-color: #0c0d10;
+  background-color: var(--color-surface-deep);
   overflow: hidden;
   box-sizing: border-box;
 }
 
 .inner {
   position: relative;
-  margin: 0 100px;
-  padding: 80px 50px;
+  margin: 0 var(--layout-margin);
+  padding: 80px var(--layout-padding);
   box-sizing: border-box;
 }
 
@@ -52,7 +52,7 @@
 
 .eyebrow {
   display: inline-block;
-  color: #e74240;
+  color: var(--color-accent);
   font-family: var(--font-primary);
   font-size: 0.875rem;
   font-weight: 700;
@@ -65,8 +65,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.14em;
-  color: #ffffff;
-  font-family: var(--font-display), "Arial Black", Impact, sans-serif;
+  color: var(--color-text);
+  font-family: var(--font-display);
   font-size: clamp(3.25rem, 6.25vw, 6rem);
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -105,7 +105,7 @@
 
 .subHeadline {
   margin: 0;
-  color: #ffffff;
+  color: var(--color-text);
   font-family: var(--font-primary);
   font-size: clamp(1.05rem, 1.25vw, 1.25rem);
   font-weight: 800;
@@ -116,7 +116,7 @@
 
 .description {
   margin: 0;
-  color: #a8a8af;
+  color: var(--color-text-dim);
   font-family: var(--font-primary);
   font-size: 0.9375rem;
   line-height: 1.6;
@@ -133,7 +133,7 @@
 
 .card {
   position: relative;
-  background-color: #15161a;
+  background-color: var(--color-surface-card);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 14px;
   padding: 2rem 2.25rem;
@@ -148,8 +148,8 @@
 }
 
 .card:hover {
-  background-color: #181a1f;
-  border-color: rgba(255, 255, 255, 0.12);
+  background-color: var(--color-surface-card-hover);
+  border-color: var(--color-border);
 }
 
 @media (max-width: 640px) {
@@ -167,7 +167,7 @@
   left: 0;
   width: 90px;
   height: 2px;
-  background-color: #e74240;
+  background-color: var(--color-accent);
   pointer-events: none;
   z-index: 2;
 }
@@ -199,7 +199,7 @@
 
 .cardTitle {
   margin: 0;
-  color: #ffffff;
+  color: var(--color-text);
   font-family: var(--font-primary);
   font-size: clamp(1.2rem, 1.35vw, 1.45rem);
   font-weight: 700;
@@ -209,7 +209,7 @@
 
 .cardText {
   margin: 0;
-  color: #a8a8af;
+  color: var(--color-text-dim);
   font-family: var(--font-primary);
   font-size: 0.9375rem;
   line-height: 1.55;
@@ -229,7 +229,7 @@
   width: 5px;
   height: 5px;
   border-radius: 9999px;
-  background-color: #e74240;
+  background-color: var(--color-accent);
   display: inline-block;
 }
 

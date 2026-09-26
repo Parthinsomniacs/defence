@@ -3,7 +3,7 @@ import AboutIntro from "./sections/AboutIntro";
 import Values from "./sections/Values";
 
 export const metadata: Metadata = {
-  title: "About | Defence Systems",
+  title: "About",
   description: "Learn who we are and how we work.",
 };
 

@@ -25,8 +25,12 @@ const boldonse = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Defence Systems",
-  description: "Defence and aerospace systems engineered for the mission ahead.",
+  title: {
+    default: "Anuvyom Alliance Private Limited | Aerospace, Defence, Advanced Systems & Petrochemical",
+    template: "%s | Anuvyom Alliance",
+  },
+  description:
+    "Strategic industrial capability across aerospace, defence, advanced systems, and petrochemical sectors.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -37,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="pageMain flex-1">{children}</main>
         <Footer />
       </body>
     </html>
