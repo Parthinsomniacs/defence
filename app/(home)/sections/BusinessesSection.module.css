@@ -13,45 +13,44 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 80px 0 100px 0;
+  padding-top: calc(var(--header-height, 84px) + 16px);
+  padding-bottom: 40px;
   box-sizing: border-box;
 }
 
 .inner {
   position: relative;
-  margin: 0 80px;
+  margin: 0 var(--layout-margin);
+  padding: 0 var(--layout-padding);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
-@media (max-width: 1280px) {
-  .inner {
-    margin: 0 clamp(1rem, 3.5vw, 3rem);
-  }
-}
-
 @media (max-width: 1024px) {
   .pinWrapper {
+    height: auto;
     min-height: auto;
-    padding: 70px 0 90px 0;
+    overflow: visible;
+    padding-top: 80px;
+    padding-bottom: 90px;
   }
 
   .inner {
-    margin: 0 clamp(1rem, 4vw, 2.5rem);
+    margin: 0 var(--layout-margin);
+    padding: 0 clamp(1rem, 3vw, var(--layout-padding));
   }
 }
 
 /* ========================================
-   HEADER
+   HEADER (Stays at the top, sharp & clear)
 ======================================== */
 .header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 1.5rem;
-  will-change: transform, opacity;
+  margin-bottom: 1rem;
 }
 
 .eyebrow {
@@ -62,14 +61,14 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .title {
   margin: 0;
   color: #ffffff;
   font-family: var(--font-display), "Arial Black", Impact, sans-serif;
-  font-size: clamp(2.5rem, 5vw, 4.75rem);
+  font-size: clamp(2.25rem, 4.4vw, 4.25rem);
   font-weight: 900;
   line-height: 1.5;
   letter-spacing: -0.01em;
@@ -93,10 +92,9 @@
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
-  padding: 1.25rem 0 2rem 0;
+  padding: 0.875rem 0 1.5rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  margin-bottom: 1.5rem;
-  will-change: transform, opacity;
+  margin-bottom: 1.25rem;
 }
 
 .metaLeft {
@@ -157,7 +155,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 1.15rem;
+  gap: 1rem;
   cursor: pointer;
   outline: none;
   text-decoration: none;
@@ -166,7 +164,7 @@
 .mediaWrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 3.8;
+  aspect-ratio: 3 / 3.7;
   border-radius: 18px;
   overflow: hidden;
   background-color: #121316;
@@ -192,7 +190,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: clamp(100px, 44%, 128px);
+  width: clamp(96px, 42%, 124px);
   aspect-ratio: 1 / 1;
   transform: translate(-50%, -50%) scale(0.35);
   border-radius: 20px;
@@ -237,49 +235,83 @@
 }
 
 /* ========================================
-   CARD BODY
+   CARD BODY & SPACING
 ======================================== */
 .cardBody {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  padding-top: 0.6rem;
 }
 
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 0.75rem;
+.sectorTag {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #e74240;
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
 }
 
 .cardTitle {
-  margin: 0;
+  margin: 0 0 0.5rem 0;
   color: #ffffff;
-  font-family: var(--font-primary);
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: var(--font-display), "Arial Black", Impact, sans-serif;
+  font-size: clamp(1.2rem, 1.4vw, 1.45rem);
+  font-weight: 900;
   letter-spacing: -0.01em;
-  line-height: 1.35;
-}
-
-.waveIcon {
-  flex-shrink: 0;
-  width: 22px;
-  height: 11px;
-  margin-top: 3px;
-  display: block;
-  transition: transform 0.35s ease, filter 0.35s ease;
-}
-
-.card:hover .waveIcon {
-  transform: translateX(4px);
-  filter: drop-shadow(0 0 6px rgba(231, 66, 64, 0.65));
+  text-transform: uppercase;
+  line-height: 1.4;
+  word-break: break-word;
 }
 
 .cardDescription {
-  margin: 0;
-  color: #8b8e96;
+  margin: 0 0 0.9rem 0;
+  color: #9ca3af;
   font-family: var(--font-primary);
   font-size: 0.875rem;
   line-height: 1.55;
+}
+
+.buttonWrap {
+  margin-top: 0.2rem;
+  display: flex;
+}
+
+.cardButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px 18px;
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-family: var(--font-primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.buttonArrow {
+  width: 11px;
+  height: 11px;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .cardButton {
+  background: #e74240;
+  border-color: #e74240;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(231, 66, 64, 0.4);
+}
+
+.card:hover .buttonArrow {
+  transform: translateX(4px);
 }

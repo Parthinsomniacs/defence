@@ -9,8 +9,10 @@ import styles from "./BusinessesSection.module.css";
 
 interface BusinessItem {
   id: string;
+  sector: string;
   title: string;
   description: string;
+  buttonText: string;
   imageSrc: string;
   imageAlt: string;
   logoSrc: string;
@@ -20,32 +22,35 @@ interface BusinessItem {
 
 const businesses: BusinessItem[] = [
   {
-    id: "aerospace-systems",
-    title: "Aerospace Systems // Autonomous UAS",
-    description:
-      "Next-generation sovereign airframes, tactical unmanned aerial systems, and aerodynamic platforms engineered for mission dominance.",
+    id: "aerospace",
+    sector: "Sector 1",
+    title: "AEROSPACE",
+    description: "UAV platforms and aerial surveillance systems.",
+    buttonText: "Explore Aerospace",
     imageSrc: "/images/business-aerospace.jpg",
     imageAlt: "Stealth aerospace defence aircraft in high-tech hangar",
     logoSrc: "/images/aerospace.png",
-    logoAlt: "Aerospace Systems Logo",
+    logoAlt: "Aerospace Logo",
     href: "/capabilities",
   },
   {
-    id: "defence-systems",
-    title: "Defence Systems // Tactical Readiness",
-    description:
-      "Precision surveillance hardware, weapon-station integration, and sovereign tactical equipment built for uncompromising operational theaters.",
+    id: "defence",
+    sector: "Sector 2",
+    title: "DEFENCE",
+    description: "Precision weapon platforms and sovereign tactical equipment.",
+    buttonText: "Explore Defence",
     imageSrc: "/images/business-systems.jpg",
     imageAlt: "Specialist engineer operating tactical command workstation in red lighting",
     logoSrc: "/images/defence.png",
-    logoAlt: "Defence Systems Logo",
+    logoAlt: "Defence Logo",
     href: "/capabilities",
   },
   {
     id: "advanced-systems",
-    title: "Advanced Systems // Cyber & Electronics",
-    description:
-      "Autonomous command architecture, resilient communications, electronic warfare countermeasures, and secure tactical telemetry.",
+    sector: "Sector 3",
+    title: "ADVANCED SYSTEMS",
+    description: "Autonomous command architectures and tactical electronic systems.",
+    buttonText: "Explore Systems",
     imageSrc: "/images/business-tactical.jpg",
     imageAlt: "Tactical telemetry and orbital defence mission interface tablet",
     logoSrc: "/images/advanced-systems.png",
@@ -53,14 +58,15 @@ const businesses: BusinessItem[] = [
     href: "/capabilities",
   },
   {
-    id: "petrochemical-energy",
-    title: "Petrochemical & Energy // Industrial Tech",
-    description:
-      "Heavy industrial process engineering, high-temperature integrity systems, and zero-fail infrastructure built for national energy continuity.",
+    id: "petrochemical",
+    sector: "Sector 4",
+    title: "PETROCHEMICAL",
+    description: "Process engineering and critical energy infrastructure solutions.",
+    buttonText: "Explore Petrochem",
     imageSrc: "/images/business-energy.jpg",
     imageAlt: "Modern petrochemical facility and advanced energy infrastructure at dusk",
     logoSrc: "/images/petrochem.png",
-    logoAlt: "Petrochemical & Energy Logo",
+    logoAlt: "Petrochemical Logo",
     href: "/capabilities",
   },
 ];
@@ -82,13 +88,13 @@ export default function BusinessesSection() {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // Desktop Pinned Scrub Animation (Fluexa Reference Interaction)
+      // Desktop Pinned Scrub Animation (Header remains sharp at top; cards slide up underneath)
       mm.add("(min-width: 1025px)", () => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: "+=1200",
+            end: "+=1000",
             pin: pinWrapRef.current,
             pinSpacing: true,
             scrub: 1.1,
@@ -96,66 +102,42 @@ export default function BusinessesSection() {
           },
         });
 
-        // 1. Header slides up slightly & fades gently
-        if (headerRef.current) {
-          tl.to(
-            headerRef.current,
-            {
-              y: -50,
-              opacity: 0.35,
-              ease: "none",
-            },
-            0
-          );
-        }
-
-        // 2. Meta row fades subtly
-        if (metaRef.current) {
-          tl.to(
-            metaRef.current,
-            {
-              y: -30,
-              opacity: 0.45,
-              ease: "none",
-            },
-            0
-          );
-        }
-
-        // 3. 4 Cards slide UP smoothly from lower starting position into full view
+        // Cards container slides UP smoothly right underneath the divider line
         if (cardsGridRef.current) {
           tl.fromTo(
             cardsGridRef.current,
             {
-              y: 190,
+              y: "28vh",
             },
             {
               y: 0,
-              ease: "none",
+              ease: "power1.out",
+              duration: 1,
             },
             0
           );
         }
 
-        // 4. Subtle inner image un-zoom (1.09 -> 1.0)
+        // Subtle inner image un-zoom (1.08 -> 1.0)
         const validImages = imageRefs.current.filter(Boolean);
         if (validImages.length > 0) {
           tl.fromTo(
             validImages,
             {
-              scale: 1.09,
+              scale: 1.08,
             },
             {
               scale: 1,
-              ease: "none",
-              stagger: 0.03,
+              ease: "power1.out",
+              stagger: 0.02,
+              duration: 1,
             },
             0
           );
         }
       });
 
-      // Mobile & Tablet (Responsive natural entrance with smooth stagger)
+      // Mobile & Tablet (Natural cascading entrance without pinning)
       mm.add("(max-width: 1024px)", () => {
         if (headerRef.current) {
           gsap.fromTo(
@@ -206,7 +188,7 @@ export default function BusinessesSection() {
     >
       <div ref={pinWrapRef} className={styles.pinWrapper}>
         <div className={styles.inner}>
-          {/* Header Block */}
+          {/* Header Block (Stays clearly visible & sharp at top) */}
           <div ref={headerRef} className={styles.header}>
             <span className={styles.eyebrow}>[ OUR BUSINESSES ]</span>
             <h2 className={styles.title}>
@@ -215,7 +197,7 @@ export default function BusinessesSection() {
             </h2>
           </div>
 
-          {/* Divider & Context Row */}
+          {/* Divider & Context Row (Cleanly visible below title) */}
           <div ref={metaRef} className={styles.metaRow}>
             <p className={styles.metaLeft}>
               Anuvyom operates in sectors where the stakes are too high for
@@ -224,7 +206,7 @@ export default function BusinessesSection() {
             <span className={styles.metaRight}>Critical Domains</span>
           </div>
 
-          {/* Cards Grid (4 Cards) */}
+          {/* Cards Grid (4 Cards that slide smoothly up underneath the divider line) */}
           <div ref={cardsGridRef} className={styles.grid}>
             {businesses.map((item, index) => (
               <article
@@ -265,26 +247,30 @@ export default function BusinessesSection() {
 
                   {/* Card Info Below Media */}
                   <div className={styles.cardBody}>
-                    <div className={styles.cardHeader}>
-                      <h3 className={styles.cardTitle}>{item.title}</h3>
-                      <svg
-                        width="22"
-                        height="11"
-                        viewBox="0 0 24 12"
-                        fill="none"
-                        className={styles.waveIcon}
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M1 10.5L9.5 3.5C10.1 3 11 3.4 11.1 4.2L11.4 8.4C11.5 9.3 12.6 9.6 13.1 8.9L18.6 1.4C19.1 0.7 20.2 0.9 20.4 1.8L23 8"
-                          stroke="#E74240"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
+                    <span className={styles.sectorTag}>{item.sector}</span>
+                    <h3 className={styles.cardTitle}>{item.title}</h3>
                     <p className={styles.cardDescription}>{item.description}</p>
+                    <div className={styles.buttonWrap}>
+                      <span className={styles.cardButton}>
+                        <span>{item.buttonText}</span>
+                        <svg
+                          width="11"
+                          height="11"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          className={styles.buttonArrow}
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M1 5H9M9 5L5.5 1.5M9 5L5.5 8.5"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
                 </Link>
               </article>
