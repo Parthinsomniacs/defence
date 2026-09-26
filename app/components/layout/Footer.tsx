@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { pageLinks, focusLinks, socialLinks } from "@/app/config/navigation";
+import AnimatedButton from "@/app/components/ui/AnimatedButton";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -29,9 +30,9 @@ export default function Footer() {
             </p>
 
             <div className={styles.brandCta}>
-              <Link href="/contact" className={styles.quoteButton}>
+              <AnimatedButton href="/contact" size="sm">
                 GET A QUOTE
-              </Link>
+              </AnimatedButton>
             </div>
 
             <div className={styles.locationBlock}>

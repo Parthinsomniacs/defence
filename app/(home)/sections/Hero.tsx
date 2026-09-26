@@ -1,5 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
+import AnimatedButton from "@/app/components/ui/AnimatedButton";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
@@ -38,12 +38,10 @@ export default function Hero() {
               FOR THE NEXT ERA
             </p>
             <div className={styles.buttonGroup}>
-              <Link href="/capabilities" className={styles.primaryButton}>
+              <AnimatedButton href="/capabilities">
                 Explore Capabilities
-              </Link>
-              <Link href="/contact" className={styles.secondaryButton}>
-                Contact Anuvyom
-              </Link>
+              </AnimatedButton>
+              <AnimatedButton href="/contact">Contact Anuvyom</AnimatedButton>
             </div>
           </div>
 

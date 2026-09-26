@@ -90,29 +90,6 @@
   margin-bottom: 2rem;
 }
 
-.quoteButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.625rem;
-  background-color: #ffffff;
-  color: #0a0a0a;
-  font-family: var(--font-primary);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-radius: 9999px;
-  text-decoration: none;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.quoteButton:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.18);
-}
-
 .locationBlock {
   display: flex;
   align-items: flex-start;
