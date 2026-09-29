@@ -145,10 +145,8 @@ export default function NewsroomSection() {
       <div className={styles.inner}>
         {/* Header Block */}
         <div ref={headerRef} className={styles.header}>
-          <span className={styles.pillBadge}>NEWS &amp; INSIGHTS</span>
-          <h2 className={styles.title}>
-            How Anuvyom frames high-value capability narratives across sectors
-          </h2>
+          <span className={styles.pillBadge}>NEWSROOM</span>
+          <h2 className={styles.title}>News &amp; Insights</h2>
           <p className={styles.subtitle}>
             A sharper look at how the company operates.
           </p>

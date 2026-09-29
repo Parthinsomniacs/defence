@@ -3,7 +3,7 @@
   background-color: #0c0d10;
   overflow: hidden;
   box-sizing: border-box;
-  padding: 100px 0 120px 0;
+  padding: 70px 0 80px 0;
 }
 
 .inner {
@@ -17,7 +17,7 @@
 
 @media (max-width: 1024px) {
   .section {
-    padding: 70px 0 90px 0;
+    padding: 50px 0 60px 0;
   }
 
   .inner {
@@ -33,8 +33,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 3rem;
-  max-width: 900px;
+  margin-bottom: 2.25rem;
 }
 
 .pillBadge {
@@ -55,16 +54,18 @@
 
 .title {
   margin: 0 0 1rem 0;
-  color: #ffffff;
-  font-family: var(--font-primary);
-  font-size: clamp(2rem, 3.6vw, 3.25rem);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 6.25vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 
 .subtitle {
   margin: 0;
+  max-width: 620px;
   color: rgba(255, 255, 255, 0.65);
   font-family: var(--font-primary);
   font-size: clamp(1rem, 1.3vw, 1.15rem);
@@ -78,7 +79,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: clamp(1rem, 1.5vw, 1.5rem);
-  grid-auto-rows: minmax(370px, auto);
+  grid-auto-rows: minmax(300px, auto);
 }
 
 @media (max-width: 1024px) {
@@ -245,32 +246,32 @@
 /* Card 1: Top-left wide (span 7) */
 .card1 {
   grid-column: span 7;
-  min-height: 440px;
+  min-height: 360px;
 }
 
 /* Card 2: Top-right compact (span 5) */
 .card2 {
   grid-column: span 5;
-  min-height: 440px;
+  min-height: 360px;
 }
 
 /* Card 3: Bottom-left tall vertical (span 5, row span 2) */
 .card3 {
   grid-column: span 5;
   grid-row: span 2;
-  min-height: 780px;
+  min-height: 640px;
 }
 
 /* Card 4: Bottom-right top wide (span 7) */
 .card4 {
   grid-column: span 7;
-  min-height: 380px;
+  min-height: 310px;
 }
 
 /* Card 5: Bottom-right bottom wide (span 7) */
 .card5 {
   grid-column: span 7;
-  min-height: 380px;
+  min-height: 400px;
 }
 
 /* Responsive Overrides */

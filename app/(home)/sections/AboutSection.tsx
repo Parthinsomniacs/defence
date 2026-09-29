@@ -196,7 +196,7 @@ export default function AboutSection() {
           {/* Left Column: Heading & Description */}
           <div className={styles.leftColumn}>
             <div className={styles.titleWrap}>
-              <span className={styles.eyebrow}>[ OUR CAPABILITIES ]</span>
+              <span className={styles.eyebrow}>OUR CAPABILITIES</span>
               <h2 className={styles.mainHeading}>
                 <span className={styles.headingLine}>ABOUT</span>
                 <span className={styles.headingLine}>US</span>

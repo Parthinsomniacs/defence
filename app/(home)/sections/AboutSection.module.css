@@ -67,7 +67,7 @@
   gap: 0.14em;
   color: var(--color-text);
   font-family: var(--font-display);
-  font-size: clamp(3.25rem, 6.25vw, 6rem);
+  font-size: clamp(3.25rem, 6.25vw, 4.5rem);
   font-weight: 900;
   letter-spacing: -0.01em;
   text-transform: uppercase;

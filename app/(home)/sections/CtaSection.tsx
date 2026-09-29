@@ -88,76 +88,18 @@ export default function CtaSection() {
           {/* Subtle Star Particle Field */}
           <div className={styles.particles} aria-hidden="true" />
 
-          {/* Left Column: 3D Perspective Interface Mockup Stage */}
-          <div ref={mockupRef} className={styles.mockupStage}>
-            <div className={styles.perspectiveGroup}>
-              {/* Back Layer 2 */}
-              <div className={styles.layerBack2} aria-hidden="true" />
-
-              {/* Back Layer 1 */}
-              <div className={styles.layerBack1} aria-hidden="true" />
-
-              {/* Foreground Tactical Window */}
-              <div className={styles.mockupWindow}>
-                {/* Top Window Bar */}
-                <div className={styles.windowBar}>
-                  <div className={styles.windowDots}>
-                    <span className={styles.dotRed} />
-                    <span className={styles.dotYellow} />
-                    <span className={styles.dotGreen} />
-                  </div>
-                  <span className={styles.windowTitle}>
-                    ANUVYOM OS // THEATER v4.2
-                  </span>
-                  <span className={styles.windowStatus}>
-                    <span className={styles.statusIndicator} />
-                    ONLINE
-                  </span>
-                </div>
-
-                {/* Window Body */}
-                <div className={styles.windowBody}>
-                  {/* Glowing Radar / Orbit Hero Widget with Section Image */}
-                  <div className={styles.globeTelemetryHero}>
-                    <Image
-                      src="/images/cta-mission-theater.jpg"
-                      alt="Autonomous UAV & Multi-Domain Defence Telemetry"
-                      fill
-                      className={styles.heroImg}
-                      sizes="(max-width: 768px) 100vw, 520px"
-                      priority
-                    />
-                    <div className={styles.heroOverlay} aria-hidden="true" />
-                    <div className={styles.heroContent}>
-                      <span className={styles.globeTag}>
-                        [ AUTONOMOUS MISSION THEATER ]
-                      </span>
-                      <h4 className={styles.globeHeadline}>
-                        Turn Sovereign Ambition Into Capability
-                      </h4>
-                      <p className={styles.globeSubtext}>
-                        Multi-domain telemetry &amp; autonomous UAV coordination
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Operational Telemetry Metrics */}
-                  <div className={styles.metricsGrid}>
-                    <div className={styles.metricBox}>
-                      <span className={styles.metricLabel}>Readiness</span>
-                      <span className={styles.metricValue}>100%</span>
-                    </div>
-                    <div className={styles.metricBox}>
-                      <span className={styles.metricLabel}>Domains</span>
-                      <span className={styles.metricValue}>4 Active</span>
-                    </div>
-                    <div className={styles.metricBox}>
-                      <span className={styles.metricLabel}>Latency</span>
-                      <span className={styles.metricValue}>0.8ms</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          {/* Left Column: Large 3D Radar Visual */}
+          <div ref={mockupRef} className={styles.visualStage}>
+            <div className={styles.radarWrapper}>
+              <div className={styles.radarGlow} aria-hidden="true" />
+              <Image
+                src="/images/cta-radar-3d.png"
+                alt="3D Tactical Radar & Defence System"
+                width={480}
+                height={480}
+                className={styles.bigRadarImg}
+                priority
+              />
             </div>
           </div>
 
@@ -165,7 +107,7 @@ export default function CtaSection() {
           <div ref={textColRef} className={styles.contentCol}>
             {/* Live Indicator Pill */}
             <div className={styles.livePill}>
-              <span className={styles.greenDot} />
+              <span className={styles.liveDot} />
               <span>Introducing Next-Gen Sovereign Systems</span>
             </div>
 

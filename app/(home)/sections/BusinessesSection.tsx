@@ -190,7 +190,7 @@ export default function BusinessesSection() {
         <div className={styles.inner}>
           {/* Header Block (Stays clearly visible & sharp at top) */}
           <div ref={headerRef} className={styles.header}>
-            <span className={styles.eyebrow}>[ OUR BUSINESSES ]</span>
+            <span className={styles.eyebrow}>OUR BUSINESSES</span>
             <h2 className={styles.title}>
               <span className={styles.titleLine}>WE OPERATE WHERE</span>
               <span className={styles.titleLine}>IMPACT MATTERS</span>
