@@ -63,8 +63,9 @@
   box-sizing: border-box;
 }
 
+/* Native smooth scroll is disabled; Lenis handles smooth scrolling. */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {

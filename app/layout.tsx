@@ -3,6 +3,8 @@ import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import SmoothScroll from "./components/SmoothScroll";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -40,9 +42,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${boldonse.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header />
-        <main className="pageMain flex-1">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <Header />
+          <main className="pageMain flex-1">{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );
