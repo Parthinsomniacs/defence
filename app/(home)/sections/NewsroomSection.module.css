@@ -210,6 +210,20 @@
   font-family: var(--font-primary);
   font-size: 0.875rem;
   line-height: 1.55;
+
+  /* Hidden by default, revealed on hover */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(8px);
+  transition: max-height 0.4s ease, opacity 0.35s ease, transform 0.4s ease;
+}
+
+.card:hover .cardExcerpt,
+.card:focus-visible .cardExcerpt {
+  max-height: 8rem;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .cardFooter {
@@ -220,11 +234,22 @@
   font-family: var(--font-primary);
   font-size: 0.8125rem;
   font-weight: 600;
-  margin-top: 0.4rem;
-  transition: color 0.3s ease;
+
+  /* Hidden by default, revealed on hover */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transform: translateY(8px);
+  transition: max-height 0.4s ease, opacity 0.35s ease, transform 0.4s ease,
+    margin-top 0.4s ease, color 0.3s ease;
 }
 
-.card:hover .cardFooter {
+.card:hover .cardFooter,
+.card:focus-visible .cardFooter {
+  max-height: 3rem;
+  opacity: 1;
+  margin-top: 0.65rem;
   color: var(--color-accent);
 }
 

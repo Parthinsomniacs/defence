@@ -124,7 +124,22 @@ export default function Footer() {
         {/* Bottom Section: Giant ANUVYOM typography + Meta Credits */}
         <div className={styles.bottom}>
           <div className={styles.studioDisplay}>
-            <span className={styles.studioText}>ANUVYOM</span>
+            <span className={styles.studioText}>
+              ANUVY
+              <span className={styles.letterO}>
+                O
+                <span className={styles.avatarHolder}>
+                  <Image
+                    src="/images/footer-avatar.jpg"
+                    alt="Footer Avatar"
+                    fill
+                    sizes="(max-width: 768px) 60px, 140px"
+                    className={styles.avatarImg}
+                  />
+                </span>
+              </span>
+              M
+            </span>
           </div>
 
           <div className={styles.metaBlock}>

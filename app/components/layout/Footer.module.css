@@ -204,6 +204,40 @@
   text-transform: uppercase;
 }
 
+.letterO {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.avatarHolder {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.72em;
+  height: 0.72em;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 0 0.035em var(--color-surface);
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease;
+}
+
+.studioDisplay:hover .avatarHolder {
+  transform: translate(-50%, -50%) scale(1.06);
+  box-shadow: 0 0 0 0.035em var(--color-surface),
+    0 0 20px rgba(154, 240, 255, 0.4);
+}
+
+.avatarImg {
+  object-fit: cover;
+  display: block;
+}
+
 /* Meta block on the right */
 .metaBlock {
   display: flex;

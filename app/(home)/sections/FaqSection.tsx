@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./FaqSection.module.css";
 
 interface FaqItem {
@@ -29,13 +32,78 @@ const faqs: FaqItem[] = [
     answer:
       "Yes. Every engagement is tailored to the partner's mission, guided by research, strategy, and measurable outcomes.",
   },
+  {
+    id: "delivery",
+    question: "How does Anuvyom approach delivery timelines?",
+    answer:
+      "Programs are structured around durable milestones, with capability built to last years and matter for decades.",
+  },
+  {
+    id: "scale",
+    question: "Can Anuvyom scale with sovereign programs?",
+    answer:
+      "Yes. Our industrial capability and partner network scale to support national-level defence and aerospace initiatives.",
+  },
 ];
 
 export default function FaqSection() {
-  const [openId, setOpenId] = useState<string | null>(faqs[0]?.id ?? null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const rows = rowRefs.current.filter(Boolean) as HTMLDivElement[];
+
+      rows.forEach((row) => {
+        const number = row.querySelector<HTMLElement>(`.${styles.number}`);
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: row,
+            start: "top 88%",
+            end: "top 50%",
+            scrub: true,
+          },
+        });
+
+        // Row lifts and brightens from dim to full as it reaches the focus band
+        tl.fromTo(
+          row,
+          { opacity: 0.15, y: 32 },
+          { opacity: 1, y: 0, ease: "none" },
+          0
+        );
+
+        // Ghost number brightens in sync
+        if (number) {
+          tl.fromTo(
+            number,
+            { opacity: 0.35 },
+            { opacity: 1, ease: "none" },
+            0
+          );
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className={styles.section} aria-label="Frequently Asked Questions">
+    <section
+      ref={sectionRef}
+      className={styles.section}
+      aria-label="Frequently Asked Questions"
+    >
       <div className={styles.inner}>
         <div className={styles.layout}>
           <div className={styles.titleWrap}>
@@ -45,58 +113,32 @@ export default function FaqSection() {
               <span className={styles.titleLine}>QUESTIONS</span>
             </AnimatedTitle>
           </div>
+        <div className={styles.header}>
+          <span className={styles.eyebrow}>FAQ</span>
+          <h2 className={styles.title}>
+            <span className={styles.titleLine}>FREQUENTLY ASKED</span>
+            <span className={styles.titleLine}>QUESTIONS</span>
+          </h2>
+        </div>
 
-          <ul className={styles.list}>
-            {faqs.map((faq, index) => {
-              const isOpen = openId === faq.id;
-              const answerId = `faq-answer-${faq.id}`;
-              return (
-                <li key={faq.id} className={styles.item}>
-                  <button
-                    type="button"
-                    className={styles.trigger}
-                    aria-expanded={isOpen}
-                    aria-controls={answerId}
-                    onClick={() => setOpenId(isOpen ? null : faq.id)}
-                  >
-                    <span className={styles.number}>
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className={styles.question}>{faq.question}</span>
-                    <span
-                      className={`${styles.toggle} ${
-                        isOpen ? styles.toggleOpen : ""
-                      }`}
-                      aria-hidden="true"
-                    >
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 14 14"
-                        fill="none"
-                      >
-                        <path
-                          d="M3 5L7 9L11 5"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                  <div
-                    id={answerId}
-                    className={`${styles.answerWrap} ${
-                      isOpen ? styles.answerOpen : ""
-                    }`}
-                  >
-                    <p className={styles.answer}>{faq.answer}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+        <div className={styles.list}>
+          {faqs.map((faq, index) => (
+            <div
+              key={faq.id}
+              ref={(el) => {
+                rowRefs.current[index] = el;
+              }}
+              className={styles.row}
+            >
+              <h3 className={styles.question}>
+                {index + 1}. {faq.question}
+              </h3>
+              <p className={styles.answer}>{faq.answer}</p>
+              <span className={styles.number} aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

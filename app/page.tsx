@@ -5,6 +5,7 @@ import TextLoopSection from "./(home)/sections/TextLoopSection";
 import BusinessesSection from "./(home)/sections/BusinessesSection";
 import PartnersSection from "./(home)/sections/PartnersSection";
 import NewsroomSection from "./(home)/sections/NewsroomSection";
+import NewsroomShowcase from "./(home)/sections/NewsroomShowcase";
 import CtaSection from "./(home)/sections/CtaSection";
 import FaqSection from "./(home)/sections/FaqSection";
 
@@ -17,6 +18,7 @@ export default function Home() {
       <BusinessesSection />
       <PartnersSection />
       <NewsroomSection />
+      <NewsroomShowcase />
       <CtaSection />
       <FaqSection />
       <TextLoopSection />
