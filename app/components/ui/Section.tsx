@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import AnimatedTitle from "./AnimatedTitle";
 import styles from "./Section.module.css";
 
 type SectionProps = {
@@ -24,9 +25,9 @@ export default function Section({ id, title, eyebrow, children }: SectionProps) 
       <div className={styles.inner}>
         {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
         {title ? (
-          <h2 id={headingId} className={styles.title}>
+          <AnimatedTitle id={headingId} className={styles.title}>
             {title}
-          </h2>
+          </AnimatedTitle>
         ) : null}
         {children}
       </div>

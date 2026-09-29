@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import styles from "./PartnersSection.module.css";
 
 interface Partner {
@@ -172,7 +173,9 @@ export default function PartnersSection() {
       <div className={styles.inner}>
         <div ref={headerRef} className={styles.header}>
           <span className={styles.eyebrow}>OUR NETWORK</span>
-          <h2 className={styles.title}>Partnerships with Purpose</h2>
+          <AnimatedTitle className={styles.title}>
+            Partnerships with Purpose
+          </AnimatedTitle>
           <p className={styles.subtitle}>
             Trusted collaborations across defence, aerospace, research, and
             industry that turn sovereign ambition into deployable capability.

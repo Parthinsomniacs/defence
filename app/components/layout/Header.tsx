@@ -77,14 +77,11 @@ export default function Header() {
 
     const ctx = gsap.context(() => {
       // Content items that reveal in sequence once the panel is down.
-      const items = drawerRef.current?.querySelectorAll<HTMLElement>(
-        "[data-reveal]"
-      );
+      const items = gsap.utils.toArray<HTMLElement>("[data-reveal]", drawerRef.current);
 
       // Initial hidden state.
       gsap.set(overlayRef.current, { autoAlpha: 0 });
       gsap.set(drawerRef.current, { yPercent: -100 });
-      if (items) gsap.set(items, { autoAlpha: 0, y: 30 });
 
       const tl = gsap
         .timeline({ paused: true })
@@ -106,17 +103,18 @@ export default function Header() {
           0
         );
 
-      if (items && items.length) {
-        tl.to(
+      if (items.length) {
+        tl.fromTo(
           items,
+          { autoAlpha: 0, y: 40 },
           {
             autoAlpha: 1,
             y: 0,
-            duration: reduceMotion ? 0.01 : 0.7,
+            duration: reduceMotion ? 0.01 : 0.8,
             ease: "power3.out",
-            stagger: reduceMotion ? 0 : 0.08,
+            stagger: reduceMotion ? 0 : 0.1,
           },
-          reduceMotion ? 0 : 0.35
+          reduceMotion ? 0 : 0.45
         );
       }
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import styles from "./NewsroomSection.module.css";
 
 interface NewsItem {
@@ -146,7 +147,7 @@ export default function NewsroomSection() {
         {/* Header Block */}
         <div ref={headerRef} className={styles.header}>
           <span className={styles.pillBadge}>NEWSROOM</span>
-          <h2 className={styles.title}>News &amp; Insights</h2>
+          <AnimatedTitle className={styles.title}>News &amp; Insights</AnimatedTitle>
           <p className={styles.subtitle}>
             A sharper look at how the company operates.
           </p>

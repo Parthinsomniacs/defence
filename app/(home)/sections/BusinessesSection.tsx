@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import styles from "./BusinessesSection.module.css";
 
 interface BusinessItem {
@@ -88,51 +89,49 @@ export default function BusinessesSection() {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // Desktop Pinned Scrub Animation (Header remains sharp at top; cards slide up underneath)
+      // Desktop: cards rise up from below and fade in as they scroll
+      // into view, scrubbed to the scroll position for a smooth reveal.
       mm.add("(min-width: 1025px)", () => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "+=1000",
-            pin: pinWrapRef.current,
-            pinSpacing: true,
-            scrub: 1.1,
-            anticipatePin: 1,
-          },
-        });
+        const cards = cardRefs.current.filter(Boolean) as HTMLElement[];
 
-        // Cards container slides UP smoothly right underneath the divider line
-        if (cardsGridRef.current) {
-          tl.fromTo(
-            cardsGridRef.current,
-            {
-              y: "28vh",
-            },
+        cards.forEach((card, index) => {
+          const isEdge = index === 0 || index === cards.length - 1;
+          // Outer cards travel further for a subtle depth difference.
+          const fromY = isEdge ? 160 : 110;
+
+          gsap.fromTo(
+            card,
+            { y: fromY, opacity: 0 },
             {
               y: 0,
-              ease: "power1.out",
-              duration: 1,
-            },
-            0
+              opacity: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: cardsGridRef.current,
+                start: "top 90%",
+                end: "top 45%",
+                scrub: 1,
+              },
+            }
           );
-        }
+        });
 
         // Subtle inner image un-zoom (1.08 -> 1.0)
         const validImages = imageRefs.current.filter(Boolean);
         if (validImages.length > 0) {
-          tl.fromTo(
+          gsap.fromTo(
             validImages,
-            {
-              scale: 1.08,
-            },
+            { scale: 1.12 },
             {
               scale: 1,
               ease: "power1.out",
-              stagger: 0.02,
-              duration: 1,
-            },
-            0
+              scrollTrigger: {
+                trigger: cardsGridRef.current,
+                start: "top 90%",
+                end: "top 40%",
+                scrub: 1,
+              },
+            }
           );
         }
       });
@@ -191,10 +190,10 @@ export default function BusinessesSection() {
           {/* Header Block (Stays clearly visible & sharp at top) */}
           <div ref={headerRef} className={styles.header}>
             <span className={styles.eyebrow}>OUR BUSINESSES</span>
-            <h2 className={styles.title}>
+            <AnimatedTitle className={styles.title}>
               <span className={styles.titleLine}>WE OPERATE WHERE</span>
               <span className={styles.titleLine}>IMPACT MATTERS</span>
-            </h2>
+            </AnimatedTitle>
           </div>
 
           {/* Divider & Context Row (Cleanly visible below title) */}

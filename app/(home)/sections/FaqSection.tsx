@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import styles from "./FaqSection.module.css";
 
 interface FaqItem {
@@ -39,10 +40,10 @@ export default function FaqSection() {
         <div className={styles.layout}>
           <div className={styles.titleWrap}>
             <span className={styles.eyebrow}>FAQ</span>
-            <h2 className={styles.title}>
+            <AnimatedTitle className={styles.title}>
               <span className={styles.titleLine}>FREQUENTLY ASKED</span>
               <span className={styles.titleLine}>QUESTIONS</span>
-            </h2>
+            </AnimatedTitle>
           </div>
 
           <ul className={styles.list}>

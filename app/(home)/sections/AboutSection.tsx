@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import styles from "./AboutSection.module.css";
 
 const capabilities = [
@@ -103,10 +105,53 @@ export default function AboutSection() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+
+    let descSplit: SplitText | null = null;
 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
+
+      // Left column: reveal heading + text on scroll into view.
+      const leftItems = gsap.utils.toArray<HTMLElement>("[data-about-reveal]");
+      if (leftItems.length) {
+        gsap.fromTo(
+          leftItems,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.9,
+            ease: "power3.out",
+            stagger: 0.15,
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 75%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Description: reveal word by word on scroll.
+      const desc = sectionRef.current?.querySelector<HTMLElement>(
+        "[data-about-desc]"
+      );
+      if (desc) {
+        descSplit = SplitText.create(desc, { type: "words" });
+        gsap.from(descSplit.words, {
+          y: 18,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          stagger: 0.04,
+          scrollTrigger: {
+            trigger: desc,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
 
       // Desktop & Tablet scroll animation (slow, luxurious scrubbed cascading reveal)
       mm.add("(min-width: 769px)", () => {
@@ -181,7 +226,10 @@ export default function AboutSection() {
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      descSplit?.revert();
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -196,15 +244,17 @@ export default function AboutSection() {
           {/* Left Column: Heading & Description */}
           <div className={styles.leftColumn}>
             <div className={styles.titleWrap}>
-              <span className={styles.eyebrow}>OUR CAPABILITIES</span>
-              <h2 className={styles.mainHeading}>
+              <span className={styles.eyebrow} data-about-reveal>
+                OUR CAPABILITIES
+              </span>
+              <AnimatedTitle className={styles.mainHeading}>
                 <span className={styles.headingLine}>ABOUT</span>
                 <span className={styles.headingLine}>US</span>
-              </h2>
+              </AnimatedTitle>
             </div>
 
             <div className={styles.bottomInfo}>
-              <div className={styles.arrowIconWrap} aria-hidden="true">
+              <div className={styles.arrowIconWrap} aria-hidden="true" data-about-reveal>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="22"
@@ -220,11 +270,11 @@ export default function AboutSection() {
                 </svg>
               </div>
               <div className={styles.infoContent}>
-                <h3 className={styles.subHeadline}>
+                <h3 className={styles.subHeadline} data-about-reveal>
                   BUILT FOR WHAT THE<br />
                   DEFENCE WORLD NEEDS
                 </h3>
-                <p className={styles.description}>
+                <p className={styles.description} data-about-desc>
                   Anuvyom was established to develop durable industrial capability, the kind that takes years to build and decades to matter.
                 </p>
               </div>
