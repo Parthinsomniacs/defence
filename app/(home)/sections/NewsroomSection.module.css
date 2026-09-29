@@ -114,8 +114,8 @@
 }
 
 .card:hover {
-  border-color: rgba(231, 66, 64, 0.45);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(231, 66, 64, 0.15);
+  border-color: rgba(154, 240, 255, 0.45);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(154, 240, 255, 0.15);
   transform: translateY(-3px);
 }
 
@@ -224,7 +224,7 @@
 }
 
 .card:hover .cardFooter {
-  color: #e74240;
+  color: var(--color-accent);
 }
 
 .arrowIcon {
