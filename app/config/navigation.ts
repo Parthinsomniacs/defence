@@ -1,6 +1,10 @@
 export type NavLink = {
   label: string;
   href: string;
+  /** Optional sub-menu items (e.g. sections within a page). */
+  children?: NavLink[];
+  /** External link (opens in a new tab). */
+  external?: boolean;
 };
 
 /**
@@ -8,23 +12,36 @@ export type NavLink = {
  * Used by both the Header (drawer) and the Footer.
  */
 
-// Primary pages
+// Primary navigation
 export const pageLinks: NavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Products", href: "/capabilities" },
-  { label: "Affiliations", href: "#affiliations" },
-  { label: "Careers", href: "#careers" },
+  {
+    label: "About",
+    href: "/about",
+    children: [
+      { label: "About Us", href: "/about" },
+      { label: "Mission & Vision", href: "/about#mission-vision" },
+      { label: "Group of Companies", href: "/about#group-of-companies" },
+    ],
+  },
+  {
+    label: "Products",
+    href: "/products",
+    children: [
+      { label: "Aerospace", href: "/products/aerospace" },
+      { label: "Defence", href: "/products/defence" },
+      { label: "Advanced Systems", href: "/products/advanced-systems" },
+      { label: "Petrochemical", href: "/products/petrochemical" },
+    ],
+  },
+  { label: "Affiliations", href: "/affiliations" },
+  { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
+  { label: "E-Shop", href: "https://anuvyom.com", external: true },
 ];
 
-// Focus / sector areas
-export const focusLinks: NavLink[] = [
-  { label: "Aerospace", href: "/capabilities" },
-  { label: "Defence", href: "/platforms" },
-  { label: "Advanced Systems", href: "/capabilities" },
-  { label: "Petrochemical", href: "/capabilities" },
-];
+// Focus / sector areas (derived from the Products sub-menu).
+export const focusLinks: NavLink[] =
+  pageLinks.find((item) => item.label === "Products")?.children ?? [];
 
 // Social profiles
 export const socialLinks: NavLink[] = [

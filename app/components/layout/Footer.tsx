@@ -61,13 +61,26 @@ export default function Footer() {
           <div className={styles.column}>
             <h2 className={styles.columnHeading}>NAVIGATION</h2>
             <ul className={styles.linkList}>
-              {pageLinks.map((item) => (
-                <li key={item.label} className={styles.linkItem}>
-                  <Link href={item.href} className={styles.navLink}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {pageLinks.map((item) =>
+                item.external ? (
+                  <li key={item.label} className={styles.linkItem}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.navLink}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={item.label} className={styles.linkItem}>
+                    <Link href={item.href} className={styles.navLink}>
+                      {item.label}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 

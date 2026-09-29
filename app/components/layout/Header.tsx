@@ -4,13 +4,66 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
-import { pageLinks, focusLinks } from "@/app/config/navigation";
+import { pageLinks, socialLinks } from "@/app/config/navigation";
 import AnimatedButton from "@/app/components/ui/AnimatedButton";
 import styles from "./Header.module.css";
 
+/**
+ * Theme icon: a fine upward zig-zag / signal spike line — a subtle,
+ * refined accent mark for a premium feel next to each nav link.
+ * Uses currentColor so it inherits the link colour (and hover state).
+ */
+function LinkIcon() {
+  return (
+    <svg
+      width="24"
+      height="12"
+      viewBox="0 0 24 12"
+      fill="none"
+      aria-hidden="true"
+      className={styles.linkIcon}
+    >
+      <path
+        d="M1 11L5.5 2.5L9 8L13 1L16.5 6.5L20 3.5L23 7"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Tabler "chevron-down" icon — rotated via GSAP when the dropdown is open. */
+function ChevronIcon({ label }: { label: string }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={styles.chevronIcon}
+      data-chevron={label}
+    >
+      <path d="M6 9l6 6l6 -6" />
+    </svg>
+  );
+}
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+
+  const closeMenu = () => {
+    setIsOpen(false);
+    setExpandedItem(null);
+  };
   const drawerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
@@ -23,9 +76,15 @@ export default function Header() {
     const drawerDuration = reduceMotion ? 0.01 : 1.1;
 
     const ctx = gsap.context(() => {
+      // Content items that reveal in sequence once the panel is down.
+      const items = drawerRef.current?.querySelectorAll<HTMLElement>(
+        "[data-reveal]"
+      );
+
       // Initial hidden state.
       gsap.set(overlayRef.current, { autoAlpha: 0 });
       gsap.set(drawerRef.current, { yPercent: -100 });
+      if (items) gsap.set(items, { autoAlpha: 0, y: 30 });
 
       const tl = gsap
         .timeline({ paused: true })
@@ -47,6 +106,20 @@ export default function Header() {
           0
         );
 
+      if (items && items.length) {
+        tl.to(
+          items,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: reduceMotion ? 0.01 : 0.7,
+            ease: "power3.out",
+            stagger: reduceMotion ? 0 : 0.08,
+          },
+          reduceMotion ? 0 : 0.35
+        );
+      }
+
       timelineRef.current = tl;
     });
 
@@ -64,19 +137,113 @@ export default function Header() {
     }
   }, [isOpen]);
 
+  // Smoothly rotate the chevron of the active dropdown (GSAP).
+  useEffect(() => {
+    const chevrons =
+      drawerRef.current?.querySelectorAll<SVGElement>("[data-chevron]");
+    if (!chevrons) return;
+
+    chevrons.forEach((chevron) => {
+      const isActive = chevron.dataset.chevron === expandedItem;
+      gsap.to(chevron, {
+        rotate: isActive ? 180 : 0,
+        duration: 0.7,
+        ease: "elastic.out(1, 0.6)",
+        overwrite: "auto",
+      });
+    });
+  }, [expandedItem]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
+      if (e.key === "Escape") closeMenu();
     };
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
     }
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  // Split the nav into two columns: everything before "Careers" in the
+  // first column, "Careers" onwards in the second.
+  const splitIndex = pageLinks.findIndex((item) => item.label === "Careers");
+  const primaryLinks = splitIndex === -1 ? pageLinks : pageLinks.slice(0, splitIndex);
+  const secondaryLinks = splitIndex === -1 ? [] : pageLinks.slice(splitIndex);
+
+  const renderNavItem = (item: (typeof pageLinks)[number]) => {
+    const isExpanded = expandedItem === item.label;
+
+    // Items with children: the whole link toggles the dropdown.
+    if (item.children) {
+      return (
+        <li key={item.label} className={styles.drawerItem} data-reveal>
+          <button
+            type="button"
+            className={`${styles.drawerLink} ${styles.drawerToggle} ${
+              isExpanded ? styles.drawerToggleOpen : ""
+            }`}
+            onClick={() =>
+              setExpandedItem((prev) => (prev === item.label ? null : item.label))
+            }
+            aria-expanded={isExpanded}
+          >
+            <LinkIcon />
+            <span className={styles.drawerLabel}>{item.label}</span>
+            <ChevronIcon label={item.label} />
+          </button>
+
+          <div
+            className={`${styles.drawerSubWrap} ${
+              isExpanded ? styles.drawerSubWrapOpen : ""
+            }`}
+          >
+            <ul className={styles.drawerSubList}>
+              {item.children.map((child, i) => (
+                <li
+                  key={child.label}
+                  className={styles.drawerSubItem}
+                  style={{ "--i": i } as React.CSSProperties}
+                >
+                  <Link
+                    href={child.href}
+                    className={styles.drawerSubLink}
+                    onClick={closeMenu}
+                  >
+                    {child.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      );
+    }
+
+    // Plain links (external or internal).
+    return (
+      <li key={item.label} className={styles.drawerItem} data-reveal>
+        {item.external ? (
+          <a
+            href={item.href}
+            className={styles.drawerLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={closeMenu}
+          >
+            <LinkIcon />
+            <span className={styles.drawerLabel}>{item.label}</span>
+          </a>
+        ) : (
+          <Link href={item.href} className={styles.drawerLink} onClick={closeMenu}>
+            <LinkIcon />
+            <span className={styles.drawerLabel}>{item.label}</span>
+          </Link>
+        )}
+      </li>
+    );
+  };
 
   return (
     <header className={styles.header}>
@@ -117,7 +284,7 @@ export default function Header() {
       <div
         ref={overlayRef}
         className={`${styles.overlay} ${isOpen ? styles.overlayOpen : ""}`}
-        onClick={() => setIsOpen(false)}
+        onClick={closeMenu}
         aria-hidden={!isOpen}
       >
         <div
@@ -128,50 +295,97 @@ export default function Header() {
           aria-modal="true"
           aria-label="Site Navigation"
         >
-          <div className={styles.drawerContent}>
-              <div className={styles.drawerCol}>
-                <p className={styles.drawerHeading}>PAGES</p>
-                <ul className={styles.drawerList}>
-                  {pageLinks.map((item) => (
-                    <li key={item.label} className={styles.drawerItem}>
-                      <Link
-                        href={item.href}
-                        className={styles.drawerLink}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+          <div className={styles.drawerBody}>
+            {/* Left: navigation */}
+            <div className={styles.drawerNav}>
+              <div className={styles.drawerContent}>
+                <div className={styles.drawerCol}>
+                  <ul className={styles.drawerList}>
+                    {primaryLinks.map(renderNavItem)}
+                  </ul>
+                </div>
+                <div className={styles.drawerCol}>
+                  <ul className={styles.drawerList}>
+                    {secondaryLinks.map(renderNavItem)}
+                  </ul>
+                </div>
               </div>
 
-              <div className={styles.drawerCol}>
-                <p className={styles.drawerHeading}>FOCUS</p>
-                <ul className={styles.drawerList}>
-                  {focusLinks.map((item) => (
-                    <li key={item.label} className={styles.drawerItem}>
-                      <Link
-                        href={item.href}
-                        className={styles.drawerLink}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ul className={styles.socialRow} data-reveal>
+                {socialLinks.map((social) => (
+                  <li key={social.label} className={styles.socialItem}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialLink}
+                      onClick={closeMenu}
+                    >
+                      {social.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-          <div className={styles.drawerFooter}>
-            <Link
-              href="/contact"
-              className={styles.drawerCta}
-              onClick={() => setIsOpen(false)}
-            >
-              GET A QUOTE &rarr;
-            </Link>
+            {/* Right: contact card */}
+            <div className={styles.contactCard} data-reveal>
+              <div className={styles.contactImages}>
+                <Image
+                  src="/images/menu-card-1.svg"
+                  alt="Radar surveillance visual"
+                  width={300}
+                  height={300}
+                  className={styles.contactImage}
+                />
+                <Image
+                  src="/images/menu-card-2.svg"
+                  alt="Drone platform visual"
+                  width={300}
+                  height={300}
+                  className={styles.contactImage}
+                />
+                <Image
+                  src="/images/menu-card-3.svg"
+                  alt="Flight path and terrain visual"
+                  width={300}
+                  height={300}
+                  className={styles.contactImage}
+                />
+              </div>
+
+              <div className={styles.contactBody}>
+                <div className={styles.contactText}>
+                  <p className={styles.contactEyebrow}>[ CONTACT US ]</p>
+                  <p className={styles.contactDesc}>
+                    Start a strategic conversation. Let&apos;s build capability
+                    that matters.
+                  </p>
+                </div>
+
+                <Link
+                  href="/contact"
+                  className={styles.contactArrow}
+                  onClick={closeMenu}
+                  aria-label="Contact us"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 17L17 7" />
+                    <path d="M8 7h9v9" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
