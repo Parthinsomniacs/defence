@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { pageLinks, focusLinks, socialLinks } from "@/app/config/navigation";
 import AnimatedButton from "@/app/components/ui/AnimatedButton";
+import SocialIcon from "@/app/components/ui/SocialIcon";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -101,16 +102,20 @@ export default function Footer() {
           {/* Social Column */}
           <div className={styles.column}>
             <h2 className={styles.columnHeading}>SOCIAL</h2>
-            <ul className={styles.linkList}>
+            <ul className={styles.socialList}>
               {socialLinks.map((item) => (
                 <li key={item.label} className={styles.linkItem}>
                   <a
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={styles.navLink}
+                    className={styles.socialLink}
+                    aria-label={item.label}
                   >
-                    {item.label}
+                    {item.icon ? (
+                      <SocialIcon name={item.icon} className={styles.socialIcon} />
+                    ) : null}
+                    <span>{item.label}</span>
                   </a>
                 </li>
               ))}
@@ -130,8 +135,8 @@ export default function Footer() {
                 O
                 <span className={styles.avatarHolder}>
                   <Image
-                    src="/images/footer-avatar.jpg"
-                    alt="Footer Avatar"
+                    src="/images/footer%20Robotics%20img.png"
+                    alt="Robotics"
                     fill
                     sizes="(max-width: 768px) 60px, 140px"
                     className={styles.avatarImg}

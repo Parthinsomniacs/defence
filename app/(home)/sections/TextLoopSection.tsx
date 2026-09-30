@@ -8,8 +8,8 @@ export default function TextLoopSection() {
         className={styles.loop}
         text="Spotlight: Anuvyom Making Headlines"
         shape="line"
-        viewHeight={150}
-        speed={90}
+        viewHeight={64}
+        speed={50}
         direction="forward"
         separator="✦"
         curviness={0}

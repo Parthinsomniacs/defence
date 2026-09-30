@@ -74,6 +74,13 @@
   background-position: 0 0, 40px 60px;
   opacity: 0.65;
   z-index: 1;
+  animation: dotDrift 40s linear infinite;
+}
+
+@keyframes dotDrift {
+  to {
+    background-position: 80px 800px, 40px -600px;
+  }
 }
 
 /* ========================================
@@ -155,7 +162,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bigRadarImg {
+  .bigRadarImg,
+  .particles {
     animation: none;
   }
 }

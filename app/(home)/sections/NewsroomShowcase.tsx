@@ -127,15 +127,9 @@ export default function NewsroomShowcase() {
       <div className={styles.inner}>
         <div ref={headerRef} className={styles.header}>
           <div className={styles.headingWrap}>
-            <span className={styles.eyebrow}>
-              <span className={styles.dot} aria-hidden="true" />
-              THE NEWSROOM
-            </span>
+            <span className={styles.eyebrow}>THE NEWSROOM</span>
             <h2 className={styles.title}>
-              <span className={styles.titleLine}>NEWS &amp;</span>
-              <span className={`${styles.titleLine} ${styles.titleAccent}`}>
-                INSIGHTS
-              </span>
+              <span className={styles.titleLine}>NEWS &amp; INSIGHTS</span>
             </h2>
           </div>
           <Link href="/newsroom" className={styles.viewAll}>

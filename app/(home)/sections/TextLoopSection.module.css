@@ -1,8 +1,6 @@
 .section {
   position: relative;
   background-color: var(--color-surface-deep);
-  height: 200px;
-  padding-bottom: 40px;
   display: flex;
   align-items: center;
   overflow: hidden;
