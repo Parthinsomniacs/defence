@@ -93,8 +93,8 @@ export default function CtaSection() {
             <div className={styles.radarWrapper}>
               <div className={styles.radarGlow} aria-hidden="true" />
               <Image
-                src="/images/cta-radar-3d.png"
-                alt="3D Tactical Radar & Defence System"
+                src="/images/CTA%20img%20robot.png"
+                alt="Next-Gen Autonomous Robotics System"
                 width={480}
                 height={480}
                 className={styles.bigRadarImg}

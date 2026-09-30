@@ -14,7 +14,7 @@ interface FaqItem {
 const faqs: FaqItem[] = [
   {
     id: "sectors",
-    question: "What sectors does Anuvyom operate in?",
+    question: "What sectors does Anuvyom\noperate in?",
     answer:
       "Anuvyom operates across aerospace, defence, advanced systems, and petrochemical sectors.",
   },

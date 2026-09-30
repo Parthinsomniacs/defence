@@ -1,3 +1,5 @@
+export type SocialIcon = "instagram" | "facebook" | "linkedin" | "youtube";
+
 export type NavLink = {
   label: string;
   href: string;
@@ -5,6 +7,8 @@ export type NavLink = {
   children?: NavLink[];
   /** External link (opens in a new tab). */
   external?: boolean;
+  /** Brand icon key (used for social links). */
+  icon?: SocialIcon;
 };
 
 /**
@@ -45,8 +49,8 @@ export const focusLinks: NavLink[] =
 
 // Social profiles
 export const socialLinks: NavLink[] = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "Facebook", href: "https://facebook.com" },
-  { label: "X", href: "https://x.com" },
+  { label: "Instagram", href: "https://instagram.com", icon: "instagram" },
+  { label: "Facebook", href: "https://facebook.com", icon: "facebook" },
+  { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
+  { label: "YouTube", href: "https://youtube.com", icon: "youtube" },
 ];
