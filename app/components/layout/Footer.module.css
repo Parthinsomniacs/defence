@@ -18,8 +18,37 @@
     padding: 40px clamp(1rem, 3vw, 30px);
   }
 
+  .top {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  /* Brand spans the full width on top; NAVIGATION, FOCUS and SOCIAL sit
+     together in one row beneath it. */
+  .brandCol {
+    grid-column: 1;
+    max-width: 60ch;
+  }
+
   .studioText {
-    font-size: 3.625rem;
+    font-size: clamp(2rem, 8vw, 4.5rem);
+  }
+}
+
+
+@media (max-width: 420px) {
+  /* NAVIGATION + FOCUS share the top row; SOCIAL drops to its own row. */
+  .top {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .brandCol {
+    grid-column: 1 / -1;
+    max-width: none;
+  }
+
+  .socialCol {
+    grid-column: 1 / -1;
   }
 }
 
@@ -28,34 +57,14 @@
 ======================================== */
 .top {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(2.5rem, 5vw, 4rem);
-}
-
-@media (min-width: 640px) {
-  .top {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .top {
-    grid-template-columns: 1.6fr 1fr 1fr 1fr;
-    gap: clamp(2.5rem, 4vw, 5rem);
-  }
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: clamp(2.5rem, 4vw, 5rem);
 }
 
 /* --- Brand Column --- */
 .brandCol {
   display: flex;
   flex-direction: column;
-}
-
-@media (min-width: 640px) and (max-width: 1023px) {
-  .brandCol {
-    grid-column: span 2;
-    max-width: 60ch;
-  }
 }
 
 .brandLogo {
@@ -155,7 +164,9 @@
   font-size: 0.9375rem;
   text-decoration: none;
   display: inline-block;
-  transition: color 0.18s ease, transform 0.18s ease;
+  transition:
+    color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .navLink:hover {
@@ -180,7 +191,9 @@
   color: var(--color-text-secondary);
   font-size: 0.9375rem;
   text-decoration: none;
-  transition: color 0.18s ease, transform 0.18s ease;
+  transition:
+    color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .socialLink:hover {
@@ -200,7 +213,7 @@
 .divider {
   border: 0;
   border-top: 1px dotted rgba(255, 255, 255, 0.22);
-  margin: 20px 0;
+  margin: 32px 0 20px;
 }
 
 /* ========================================
@@ -208,17 +221,11 @@
 ======================================== */
 .bottom {
   display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-@media (min-width: 900px) {
-  .bottom {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 3rem;
-  }
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3rem;
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 /* Giant STUDIO text with embedded avatar in 'O' */
@@ -231,12 +238,13 @@
 
 .studioText {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 12vw, 12rem);
+  font-size: clamp(2.5rem, 10vw, 11rem);
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--color-text);
   line-height: 0.82;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .letterO {
@@ -273,13 +281,8 @@
   color: var(--color-text-secondary);
   flex-shrink: 0;
   padding-bottom: 0.5rem;
-}
-
-@media (min-width: 900px) {
-  .metaBlock {
-    text-align: left;
-    align-items: flex-start;
-  }
+  text-align: right;
+  align-items: flex-end;
 }
 
 .legalLinks {
@@ -306,4 +309,34 @@
 .creditsLine {
   margin: 0;
   color: var(--color-text-secondary);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+/* At 1216 the giant ANUVYOM word and the meta block share a row and the
+   meta text gets pushed off the right edge. Stack them and left-align the
+   meta block so nothing overflows. */
+@media (max-width: 1216px) {
+  .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .metaBlock {
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .brandDescription {
+
+  max-width: unset;
+}
+  .brandCol {
+    grid-column: 1 / -1;
+    max-width: 60ch;
+  }
 }

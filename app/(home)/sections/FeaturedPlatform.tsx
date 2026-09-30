@@ -38,12 +38,17 @@ export default function FeaturedPlatform() {
     // Size the canvas backing store to its CSS box × DPR (called on resize).
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(canvas.clientWidth * dpr);
-      canvas.height = Math.round(canvas.clientHeight * dpr);
+      const w = canvas.clientWidth || window.innerWidth;
+      const h = canvas.clientHeight || window.innerHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
       currentFrame = -1; // force a redraw at the new size
+      render();
     };
 
-    // Draw a frame with "cover" fit. Only redraws when the frame changes.
+    // Draw a frame. On wide screens the image "covers" the canvas for a
+    // full-bleed look; from 1216px down it is "contained" so the whole
+    // missile stays visible and is never cropped.
     const render = () => {
       const index = Math.round(state.frame);
       if (index === currentFrame) return;
@@ -51,15 +56,18 @@ export default function FeaturedPlatform() {
       const img = images[index];
       if (!img || !img.complete || img.naturalWidth === 0) return;
 
-      const scale = Math.max(
-        canvas.width / img.naturalWidth,
-        canvas.height / img.naturalHeight
-      );
+      const ratioX = canvas.width / img.naturalWidth;
+      const ratioY = canvas.height / img.naturalHeight;
+      // From 768px down, "contain" the whole missile (no crop / full view).
+      const contain = window.innerWidth <= 768;
+      const scale = contain ? Math.min(ratioX, ratioY) : Math.max(ratioX, ratioY);
+
       const dw = img.naturalWidth * scale;
       const dh = img.naturalHeight * scale;
       const dx = (canvas.width - dw) / 2;
       const dy = (canvas.height - dh) / 2;
 
+      context.clearRect(0, 0, canvas.width, canvas.height);
       context.drawImage(img, dx, dy, dw, dh);
       currentFrame = index;
     };
@@ -71,13 +79,18 @@ export default function FeaturedPlatform() {
       img.src = framePath(i);
       img.decode?.().catch(() => {});
       img.onload = () => {
-        if (i === 0) {
-          resize();
+        // Redraw if the just-loaded image is the frame we currently need.
+        if (i === Math.round(state.frame)) {
+          currentFrame = -1;
           render();
         }
       };
       images[i] = img;
     }
+
+    // Size the canvas up front so the first paint is correct regardless
+    // of when frames finish loading.
+    resize();
 
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -90,45 +103,80 @@ export default function FeaturedPlatform() {
         return;
       }
 
-      // Scrub the frame index across a long pinned scroll distance.
-      gsap.to(state, {
-        frame: FRAME_COUNT - 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=500%",
-          scrub: 1,
-          pin: stageRef.current,
-          anticipatePin: 1,
-        },
-      });
+      const mm = gsap.matchMedia();
 
-      // While the caption is visible the image stays dimmed (with a scrim)
-      // so the text is legible. As the caption eases out, the image rises to
-      // full opacity and the scrim clears.
-      gsap
-        .timeline({
+      // Shared: caption fades out and the image lifts to full opacity as the
+      // sequence begins. Uses a plain scroll range (no pin) so it behaves
+      // identically on every device.
+      const introReveal = () =>
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: "+=30%",
+              scrub: true,
+            },
+          })
+          .to(introRef.current, { autoAlpha: 0, y: -20, ease: "none" }, 0)
+          .to(canvasRef.current, { opacity: 1, ease: "none" }, 0)
+          .to(scrimRef.current, { autoAlpha: 0, ease: "none" }, 0);
+
+      // Desktop / laptop: pin the stage and scrub the frames over a long
+      // scroll distance.
+      mm.add("(min-width: 1025px)", () => {
+        gsap.to(state, {
+          frame: FRAME_COUNT - 1,
+          ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: "+=30%",
-            scrub: true,
+            end: "+=500%",
+            scrub: 1,
+            pin: stageRef.current,
+            anticipatePin: 1,
           },
-        })
-        .to(introRef.current, { autoAlpha: 0, y: -20, ease: "none" }, 0)
-        .to(canvasRef.current, { opacity: 1, ease: "none" }, 0)
-        .to(scrimRef.current, { autoAlpha: 0, ease: "none" }, 0);
+        });
+        introReveal();
+      });
+
+      // Mobile / tablet: no pinning (pinning + smooth-scroll is unreliable on
+      // touch). The section is taller than the viewport; the sticky stage
+      // stays in view while the frames scrub against the section's own
+      // scroll progress. This plays the full sequence smoothly on phones.
+      mm.add("(max-width: 1024px)", () => {
+        gsap.to(state, {
+          frame: FRAME_COUNT - 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.5,
+          },
+        });
+        introReveal();
+      });
     }, sectionRef);
 
     // Decouple drawing from scroll: the ticker draws the latest frame once
     // per animation frame, which removes the per-scroll-event jerk.
     gsap.ticker.add(render);
-    window.addEventListener("resize", resize);
+
+    // On resize, re-size the canvas and let ScrollTrigger recompute the
+    // pinned scroll distance so the scrub stays correct at every width.
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      resize();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 150);
+    };
+    window.addEventListener("resize", handleResize);
 
     return () => {
       gsap.ticker.remove(render);
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(resizeTimer);
       ctx.revert();
     };
   }, []);
