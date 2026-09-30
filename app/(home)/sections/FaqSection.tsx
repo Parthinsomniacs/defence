@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -105,14 +103,6 @@ export default function FaqSection() {
       aria-label="Frequently Asked Questions"
     >
       <div className={styles.inner}>
-        <div className={styles.layout}>
-          <div className={styles.titleWrap}>
-            <span className={styles.eyebrow}>FAQ</span>
-            <AnimatedTitle className={styles.title}>
-              <span className={styles.titleLine}>FREQUENTLY ASKED</span>
-              <span className={styles.titleLine}>QUESTIONS</span>
-            </AnimatedTitle>
-          </div>
         <div className={styles.header}>
           <span className={styles.eyebrow}>FAQ</span>
           <h2 className={styles.title}>
