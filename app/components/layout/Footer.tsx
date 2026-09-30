@@ -1,29 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
+import { pageLinks, focusLinks, socialLinks } from "@/app/config/navigation";
+import AnimatedButton from "@/app/components/ui/AnimatedButton";
+import SocialIcon from "@/app/components/ui/SocialIcon";
 import styles from "./Footer.module.css";
-
-const navigationLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Products", href: "/capabilities" },
-  { label: "Affiliations", href: "#affiliations" },
-  { label: "Careers", href: "#careers" },
-  { label: "Contact", href: "/contact" },
-];
-
-const focusLinks = [
-  { label: "Aerospace", href: "/capabilities" },
-  { label: "Defence", href: "/platforms" },
-  { label: "Advanced Systems", href: "/capabilities" },
-  { label: "Petrochemical", href: "/capabilities" },
-];
-
-const socialLinks = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "Facebook", href: "https://facebook.com" },
-  { label: "X", href: "https://x.com" },
-];
 
 export default function Footer() {
   return (
@@ -45,15 +25,15 @@ export default function Footer() {
             </Link>
 
             <p className={styles.brandDescription}>
-              Transforming ideas into memorable experiences through strategic design,
-              creative storytelling, and innovative digital solutions that deliver
-              measurable results.
+              Building strategic industrial capability across aerospace, defence,
+              advanced systems, and petrochemical sectors — engineered for the
+              missions that matter.
             </p>
 
             <div className={styles.brandCta}>
-              <Link href="/contact" className={styles.quoteButton}>
+              <AnimatedButton href="/contact" size="sm">
                 GET A QUOTE
-              </Link>
+              </AnimatedButton>
             </div>
 
             <div className={styles.locationBlock}>
@@ -73,7 +53,7 @@ export default function Footer() {
                 </svg>
               </div>
               <p className={styles.addressText}>
-                Address - 123 Riverbend, California 94025, USA
+                Address - Add your registered office address here
               </p>
             </div>
           </div>
@@ -82,13 +62,26 @@ export default function Footer() {
           <div className={styles.column}>
             <h2 className={styles.columnHeading}>NAVIGATION</h2>
             <ul className={styles.linkList}>
-              {navigationLinks.map((item) => (
-                <li key={item.label} className={styles.linkItem}>
-                  <Link href={item.href} className={styles.navLink}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {pageLinks.map((item) =>
+                item.external ? (
+                  <li key={item.label} className={styles.linkItem}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.navLink}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={item.label} className={styles.linkItem}>
+                    <Link href={item.href} className={styles.navLink}>
+                      {item.label}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 
@@ -109,16 +102,20 @@ export default function Footer() {
           {/* Social Column */}
           <div className={styles.column}>
             <h2 className={styles.columnHeading}>SOCIAL</h2>
-            <ul className={styles.linkList}>
+            <ul className={styles.socialList}>
               {socialLinks.map((item) => (
                 <li key={item.label} className={styles.linkItem}>
                   <a
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={styles.navLink}
+                    className={styles.socialLink}
+                    aria-label={item.label}
                   >
-                    {item.label}
+                    {item.icon ? (
+                      <SocialIcon name={item.icon} className={styles.socialIcon} />
+                    ) : null}
+                    <span>{item.label}</span>
                   </a>
                 </li>
               ))}
@@ -129,12 +126,8 @@ export default function Footer() {
         {/* Dotted Divider */}
         <hr className={styles.divider} aria-hidden="true" />
 
-        {/* Bottom Section: Giant ANUVYOM typography + Meta Credits */}
+        {/* Bottom Section: Meta Credits + Giant ANUVYOM typography */}
         <div className={styles.bottom}>
-          <div className={styles.studioDisplay}>
-            <span className={styles.studioText}>ANUVYOM</span>
-          </div>
-
           <div className={styles.metaBlock}>
             <div className={styles.legalLinks}>
               <Link href="#style-guide" className={styles.metaLink}>
@@ -149,28 +142,28 @@ export default function Footer() {
             </div>
 
             <p className={styles.creditsLine}>
-              Designed by :{" "}
-              <a
-                href="https://webflow.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.agencyLink}
-              >
-                Flow Design Agency,
-              </a>
+              &copy; {new Date().getFullYear()} Anuvyom Alliance Private Limited.
+              All rights reserved.
             </p>
+          </div>
 
-            <p className={styles.creditsLine}>
-              Powered by :{" "}
-              <a
-                href="https://webflow.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.platformLink}
-              >
-                Webflow
-              </a>
-            </p>
+          <div className={styles.studioDisplay}>
+            <span className={styles.studioText}>
+              ANUVY
+              <span className={styles.letterO}>
+                O
+                <span className={styles.avatarHolder}>
+                  <Image
+                    src="/images/footer%20Robotics%20img.png"
+                    alt="Robotics"
+                    fill
+                    sizes="(max-width: 768px) 60px, 140px"
+                    className={styles.avatarImg}
+                  />
+                </span>
+              </span>
+              M
+            </span>
           </div>
         </div>
       </div>

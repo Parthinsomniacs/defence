@@ -1,39 +1,56 @@
-export type NavChild = {
-  label: string;
-  href: string;
-  description?: string;
-};
+export type SocialIcon = "instagram" | "facebook" | "linkedin" | "youtube";
 
-export type NavItem = {
+export type NavLink = {
   label: string;
   href: string;
-  children?: NavChild[];
+  /** Optional sub-menu items (e.g. sections within a page). */
+  children?: NavLink[];
+  /** External link (opens in a new tab). */
+  external?: boolean;
+  /** Brand icon key (used for social links). */
+  icon?: SocialIcon;
 };
 
 /**
- * Single source of truth for the primary navigation.
- * Add a page here and it shows up in the header (and dropdowns) automatically.
+ * Single source of truth for site navigation.
+ * Used by both the Header (drawer) and the Footer.
  */
-export const navigation: NavItem[] = [
+
+// Primary navigation
+export const pageLinks: NavLink[] = [
   {
     label: "About",
     href: "/about",
     children: [
-      { label: "Overview", href: "/about", description: "Who we are" },
-      { label: "Team", href: "/about/team", description: "The people behind the work" },
-      { label: "History", href: "/about/history", description: "Our journey so far" },
+      { label: "About Us", href: "/about" },
+      { label: "Mission & Vision", href: "/about#mission-vision" },
+      { label: "Group of Companies", href: "/about#group-of-companies" },
     ],
   },
   {
-    label: "Capabilities",
-    href: "/capabilities",
+    label: "Products",
+    href: "/products",
+    children: [
+      { label: "Aerospace", href: "/products/aerospace" },
+      { label: "Defence", href: "/products/defence" },
+      { label: "Advanced Systems", href: "/products/advanced-systems" },
+      { label: "Petrochemical", href: "/products/petrochemical" },
+    ],
   },
-  {
-    label: "Platforms",
-    href: "/platforms",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
+  { label: "Affiliations", href: "/affiliations" },
+  { label: "Careers", href: "/careers" },
+  { label: "Contact", href: "/contact" },
+  { label: "E-Shop", href: "https://anuvyom.com", external: true },
+];
+
+// Focus / sector areas (derived from the Products sub-menu).
+export const focusLinks: NavLink[] =
+  pageLinks.find((item) => item.label === "Products")?.children ?? [];
+
+// Social profiles
+export const socialLinks: NavLink[] = [
+  { label: "Instagram", href: "https://instagram.com", icon: "instagram" },
+  { label: "Facebook", href: "https://facebook.com", icon: "facebook" },
+  { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
+  { label: "YouTube", href: "https://youtube.com", icon: "youtube" },
 ];

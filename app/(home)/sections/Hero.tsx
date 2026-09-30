@@ -1,19 +1,102 @@
-import Link from "next/link";
-import Image from "next/image";
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+import AnimatedButton from "@/app/components/ui/AnimatedButton";
 import styles from "./Hero.module.css";
 
+gsap.registerPlugin(SplitText);
+
 export default function Hero() {
+  const rootRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    let split: SplitText | null = null;
+
+    const ctx = gsap.context(() => {
+      const items = gsap.utils.toArray<HTMLElement>("[data-hero]");
+      const title = rootRef.current?.querySelector<HTMLElement>(
+        "[data-hero-title]"
+      );
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        delay: 0.15,
+      });
+
+      // Title: staggered per-letter reveal using SplitText.
+      if (title) {
+        split = SplitText.create(title, { type: "chars" });
+        tl.from(
+          split.chars,
+          {
+            y: 50,
+            opacity: 0,
+            duration: reduceMotion ? 0.01 : 1.1,
+            ease: reduceMotion ? "none" : "back.out(1.7)",
+            stagger: reduceMotion ? 0 : 0.08,
+          },
+          0
+        );
+      }
+
+      // Supporting text + buttons cascade in.
+      if (items.length) {
+        tl.fromTo(
+          items,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: reduceMotion ? 0.01 : 0.8,
+            stagger: reduceMotion ? 0 : 0.12,
+          },
+          reduceMotion ? 0 : 0.35
+        );
+      }
+
+      // Tagline words reveal one by one.
+      const taglineItems = gsap.utils.toArray<HTMLElement>("[data-tagline]");
+      if (taglineItems.length) {
+        tl.fromTo(
+          taglineItems,
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: reduceMotion ? 0.01 : 0.5,
+            ease: reduceMotion ? "none" : "power2.out",
+            stagger: reduceMotion ? 0 : 0.1,
+          },
+          reduceMotion ? 0 : 0.5
+        );
+      }
+    }, rootRef);
+
+    return () => {
+      split?.revert();
+      ctx.revert();
+    };
+  }, []);
+
   return (
-    <section className={styles.hero} aria-label="Hero Section">
-      {/* Background Cinematic Editorial Portrait */}
+    <section ref={rootRef} className={styles.hero} aria-label="Hero Section">
+      {/* Background cinematic video */}
       <div className={styles.bgWrapper} aria-hidden="true">
-        <Image
-          src="/images/hero-editorial.jpg"
-          alt="Editorial high-fashion portrait with neon lighting"
-          fill
-          priority
-          quality={92}
-          className={styles.bgImage}
+        <video
+          className={styles.bgVideo}
+          src="/images/hero-video.mp4"
+          poster="/images/hero-editorial.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
         />
         <div className={styles.overlay} />
       </div>
@@ -31,40 +114,40 @@ export default function Hero() {
         <div className={styles.content}>
           {/* Bottom Left Info & CTA */}
           <div className={styles.leftBlock}>
-            <span className={styles.squareIndicator} aria-hidden="true" />
-            <h2 className={styles.headline}>
+            <span className={styles.squareIndicator} aria-hidden="true" data-hero />
+            <p className={styles.headline} data-hero>
               ENGINEERING<br />
               STRATEGIC CAPABILITY<br />
               FOR THE NEXT ERA
-            </h2>
-            <div className={styles.buttonGroup}>
-              <Link href="/capabilities" className={styles.primaryButton}>
+            </p>
+            <div className={styles.buttonGroup} data-hero>
+              <AnimatedButton href="/capabilities">
                 Explore Capabilities
-              </Link>
-              <Link href="/contact" className={styles.secondaryButton}>
-                Contact Anuvyom
-              </Link>
+              </AnimatedButton>
+              <AnimatedButton href="/contact">Contact Anuvyom</AnimatedButton>
             </div>
           </div>
 
           {/* Bottom Right: Tagline + Giant ANUVYOM Typography */}
           <div className={styles.rightBlock}>
             <div className={styles.tagline}>
-              <span>Aerospace</span>
-              <span className={styles.slash} aria-hidden="true">
+              <span data-tagline>Aerospace</span>
+              <span className={styles.slash} aria-hidden="true" data-tagline>
                 /
               </span>
-              <span>Defence</span>
-              <span className={styles.slash} aria-hidden="true">
+              <span data-tagline>Defence</span>
+              <span className={styles.slash} aria-hidden="true" data-tagline>
                 /
               </span>
-              <span>Advanced Systems</span>
-              <span className={styles.slash} aria-hidden="true">
+              <span data-tagline>Advanced Systems</span>
+              <span className={styles.slash} aria-hidden="true" data-tagline>
                 /
               </span>
-              <span>Petrochemical</span>
+              <span data-tagline>Petrochemical</span>
             </div>
-            <h1 className={styles.heroTitle}>ANUVYOM</h1>
+            <h1 className={styles.heroTitle} data-hero-title>
+              ANUVYOM
+            </h1>
           </div>
         </div>
       </div>
