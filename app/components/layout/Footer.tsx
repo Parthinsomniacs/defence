@@ -100,7 +100,7 @@ export default function Footer() {
           </div>
 
           {/* Social Column */}
-          <div className={styles.column}>
+          <div className={`${styles.column} ${styles.socialCol}`}>
             <h2 className={styles.columnHeading}>SOCIAL</h2>
             <ul className={styles.socialList}>
               {socialLinks.map((item) => (

@@ -9,6 +9,7 @@
   position: relative;
   width: 100%;
   height: 100vh;
+  height: 100svh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -97,6 +98,18 @@
 @media (max-width: 1024px) {
   .subline {
     font-size: 0.9375rem;
+  }
+
+  /* No JS pinning on touch devices. Instead the section is taller than the
+     viewport and the stage sticks, so the frame sequence scrubs against the
+     section's own scroll — reliable on mobile. */
+  .section {
+    height: 300svh;
+  }
+
+  .stage {
+    position: sticky;
+    top: 0;
   }
 }
 
