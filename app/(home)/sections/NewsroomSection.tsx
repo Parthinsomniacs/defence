@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import styles from "./NewsroomSection.module.css";
 
@@ -91,19 +92,23 @@ export default function NewsroomSection() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+
+    let subtitleSplit: SplitText | null = null;
 
     const ctx = gsap.context(() => {
-      // Header entrance
-      if (headerRef.current) {
+      // Badge entrance (title handled by AnimatedTitle).
+      const badge = headerRef.current?.querySelector<HTMLElement>(
+        `.${styles.pillBadge}`
+      );
+      if (badge) {
         gsap.fromTo(
-          headerRef.current.children,
-          { y: 35, opacity: 0 },
+          badge,
+          { y: 30, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.85,
-            stagger: 0.12,
+            duration: 0.8,
             ease: "power2.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -111,6 +116,26 @@ export default function NewsroomSection() {
             },
           }
         );
+      }
+
+      // Subtitle: reveal word by word on scroll.
+      const subtitle = headerRef.current?.querySelector<HTMLElement>(
+        `.${styles.subtitle}`
+      );
+      if (subtitle) {
+        subtitleSplit = SplitText.create(subtitle, { type: "words" });
+        gsap.from(subtitleSplit.words, {
+          y: 18,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          stagger: 0.05,
+          scrollTrigger: {
+            trigger: subtitle,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+        });
       }
 
       // Bento cards staggered entrance
@@ -134,7 +159,10 @@ export default function NewsroomSection() {
       }
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      subtitleSplit?.revert();
+      ctx.revert();
+    };
   }, []);
 
   return (

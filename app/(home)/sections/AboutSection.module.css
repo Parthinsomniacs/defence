@@ -197,6 +197,17 @@
   gap: 0.5rem;
 }
 
+.cardLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
 .cardTitle {
   margin: 0;
   color: var(--color-text);

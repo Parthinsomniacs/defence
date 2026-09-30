@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import styles from "./FaqSection.module.css";
 
 interface FaqItem {
@@ -105,10 +106,10 @@ export default function FaqSection() {
       <div className={styles.inner}>
         <div className={styles.header}>
           <span className={styles.eyebrow}>FAQ</span>
-          <h2 className={styles.title}>
+          <AnimatedTitle className={styles.title}>
             <span className={styles.titleLine}>FREQUENTLY ASKED</span>
             <span className={styles.titleLine}>QUESTIONS</span>
-          </h2>
+          </AnimatedTitle>
         </div>
 
         <div className={styles.list}>

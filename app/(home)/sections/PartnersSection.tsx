@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import styles from "./PartnersSection.module.css";
 
@@ -121,7 +122,9 @@ export default function PartnersSection() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+
+    let subtitleSplit: SplitText | null = null;
 
     const ctx = gsap.context(() => {
       if (headerRef.current) {
@@ -139,6 +142,26 @@ export default function PartnersSection() {
             },
           }
         );
+      }
+
+      // Subtitle: reveal word by word on scroll.
+      const subtitle = sectionRef.current?.querySelector<HTMLElement>(
+        `.${styles.subtitle}`
+      );
+      if (subtitle) {
+        subtitleSplit = SplitText.create(subtitle, { type: "words" });
+        gsap.from(subtitleSplit.words, {
+          y: 18,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          stagger: 0.04,
+          scrollTrigger: {
+            trigger: subtitle,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+        });
       }
 
       const validCards = cardRefs.current.filter(Boolean);
@@ -161,7 +184,10 @@ export default function PartnersSection() {
       }
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      subtitleSplit?.revert();
+      ctx.revert();
+    };
   }, []);
 
   return (

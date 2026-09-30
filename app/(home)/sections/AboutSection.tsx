@@ -9,10 +9,10 @@ import styles from "./AboutSection.module.css";
 
 const capabilities = [
   {
-    id: "creative-thinking",
-    title: "Creative thinking",
-    description:
-      "Fresh ideas that drive innovation, growth, and lasting business success.",
+    id: "sectors",
+    label: "Sectors",
+    title: "04",
+    description: "Aerospace, Defence, Advanced Systems, and Petrochemical.",
     activeDots: 1,
     svg: (
       <svg
@@ -38,10 +38,10 @@ const capabilities = [
     ),
   },
   {
-    id: "strategic-approach",
-    title: "Strategic approach",
-    description:
-      "Every decision guided by strategy, research, and measurable results.",
+    id: "model",
+    label: "Model",
+    title: "B2G",
+    description: "Government, institutional, and strategic partner engagement.",
     activeDots: 2,
     svg: (
       <svg
@@ -67,10 +67,10 @@ const capabilities = [
     ),
   },
   {
-    id: "custom-solutions",
-    title: "Custom solutions",
-    description:
-      "Tailored solutions designed to achieve your unique business goals.",
+    id: "direction",
+    label: "Direction",
+    title: "Long Term",
+    description: "Capability, scale, and execution built to last.",
     activeDots: 3,
     svg: (
       <svg
@@ -129,14 +129,13 @@ export default function AboutSection() {
               start: "top 75%",
               toggleActions: "play none none reverse",
             },
-          }
+          },
         );
       }
 
       // Description: reveal word by word on scroll.
-      const desc = sectionRef.current?.querySelector<HTMLElement>(
-        "[data-about-desc]"
-      );
+      const desc =
+        sectionRef.current?.querySelector<HTMLElement>("[data-about-desc]");
       if (desc) {
         descSplit = SplitText.create(desc, { type: "words" });
         gsap.from(descSplit.words, {
@@ -178,7 +177,7 @@ export default function AboutSection() {
               ease: "power2.out",
               duration: 1.2,
             },
-            index * 0.75
+            index * 0.75,
           );
         });
       });
@@ -204,7 +203,7 @@ export default function AboutSection() {
                 start: "top 90%",
                 toggleActions: "play none none reverse",
               },
-            }
+            },
           );
         });
       });
@@ -221,7 +220,7 @@ export default function AboutSection() {
             repeat: -1,
             yoyo: true,
             ease: "sine.inOut",
-          }
+          },
         );
       });
     }, sectionRef);
@@ -254,7 +253,11 @@ export default function AboutSection() {
             </div>
 
             <div className={styles.bottomInfo}>
-              <div className={styles.arrowIconWrap} aria-hidden="true" data-about-reveal>
+              <div
+                className={styles.arrowIconWrap}
+                aria-hidden="true"
+                data-about-reveal
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="22"
@@ -271,11 +274,14 @@ export default function AboutSection() {
               </div>
               <div className={styles.infoContent}>
                 <h3 className={styles.subHeadline} data-about-reveal>
-                  BUILT FOR WHAT THE<br />
+                  BUILT FOR WHAT THE
+                  <br />
                   DEFENCE WORLD NEEDS
                 </h3>
                 <p className={styles.description} data-about-desc>
-                  Anuvyom was established to develop durable industrial capability, the kind that takes years to build and decades to matter.
+                  Anuvyom was established to develop durable industrial
+                  capability, the kind that takes years to build and decades to
+                  matter.
                 </p>
               </div>
             </div>
@@ -305,6 +311,7 @@ export default function AboutSection() {
 
                 {/* Center Content */}
                 <div className={styles.cardBody}>
+                  <span className={styles.cardLabel}>{item.label}</span>
                   <h3 className={styles.cardTitle}>{item.title}</h3>
                   <p className={styles.cardText}>{item.description}</p>
                 </div>

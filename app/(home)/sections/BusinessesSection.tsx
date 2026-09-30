@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import styles from "./BusinessesSection.module.css";
 
@@ -84,10 +85,73 @@ export default function BusinessesSection() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+
+    let metaSplit: SplitText | null = null;
 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
+
+      // Robotic arm slides in from the left on scroll (keeps its flip).
+      const robot = sectionRef.current?.querySelector<HTMLElement>(
+        "[data-robot]"
+      );
+      if (robot) {
+        gsap.fromTo(
+          robot,
+          { x: -120, autoAlpha: 0, scaleX: 1 },
+          {
+            x: 0,
+            autoAlpha: 1,
+            scaleX: 1,
+            duration: 1.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Meta row: description reveals word by word, label fades up.
+      const metaLeft = metaRef.current?.querySelector<HTMLElement>(
+        `.${styles.metaLeft}`
+      );
+      const metaRight = metaRef.current?.querySelector<HTMLElement>(
+        `.${styles.metaRight}`
+      );
+
+      if (metaLeft) {
+        metaSplit = SplitText.create(metaLeft, { type: "words" });
+        gsap.from(metaSplit.words, {
+          y: 20,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          stagger: 0.04,
+          scrollTrigger: {
+            trigger: metaRef.current,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      if (metaRight) {
+        gsap.from(metaRight, {
+          y: 20,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: metaRef.current,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
 
       // Desktop: cards rise up from below and fade in as they scroll
       // into view, scrubbed to the scroll position for a smooth reveal.
@@ -176,7 +240,10 @@ export default function BusinessesSection() {
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      metaSplit?.revert();
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -187,6 +254,17 @@ export default function BusinessesSection() {
     >
       <div ref={pinWrapRef} className={styles.pinWrapper}>
         <div className={styles.inner}>
+          {/* Decorative robotic arm (top-left) */}
+          <Image
+            src="/images/robot-arm.webp"
+            alt=""
+            aria-hidden="true"
+            width={320}
+            height={320}
+            className={styles.robotArm}
+            data-robot
+          />
+
           {/* Header Block (Stays clearly visible & sharp at top) */}
           <div ref={headerRef} className={styles.header}>
             <span className={styles.eyebrow}>OUR BUSINESSES</span>
@@ -237,7 +315,7 @@ export default function BusinessesSection() {
                           src={item.logoSrc}
                           alt={item.logoAlt}
                           fill
-                          sizes="128px"
+                          sizes="180px"
                           className={styles.logoImage}
                         />
                       </div>
