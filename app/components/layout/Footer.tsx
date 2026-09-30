@@ -126,27 +126,8 @@ export default function Footer() {
         {/* Dotted Divider */}
         <hr className={styles.divider} aria-hidden="true" />
 
-        {/* Bottom Section: Meta Credits + Giant ANUVYOM typography */}
+        {/* Bottom Section: Giant ANUVYOM typography + Meta Credits */}
         <div className={styles.bottom}>
-          <div className={styles.metaBlock}>
-            <div className={styles.legalLinks}>
-              <Link href="#style-guide" className={styles.metaLink}>
-                Style guide
-              </Link>
-              <span className={styles.metaDivider} aria-hidden="true">
-                /
-              </span>
-              <Link href="#licenses" className={styles.metaLink}>
-                Licenses
-              </Link>
-            </div>
-
-            <p className={styles.creditsLine}>
-              &copy; {new Date().getFullYear()} Anuvyom Alliance Private Limited.
-              All rights reserved.
-            </p>
-          </div>
-
           <div className={styles.studioDisplay}>
             <span className={styles.studioText}>
               ANUVY
@@ -164,6 +145,25 @@ export default function Footer() {
               </span>
               M
             </span>
+          </div>
+
+          <div className={styles.metaBlock}>
+            <div className={styles.legalLinks}>
+              <Link href="#style-guide" className={styles.metaLink}>
+                Style guide
+              </Link>
+              <span className={styles.metaDivider} aria-hidden="true">
+                /
+              </span>
+              <Link href="#licenses" className={styles.metaLink}>
+                Licenses
+              </Link>
+            </div>
+
+            <p className={styles.creditsLine}>
+              &copy; {new Date().getFullYear()} Anuvyom Alliance Private Limited.
+              All rights reserved.
+            </p>
           </div>
         </div>
       </div>
