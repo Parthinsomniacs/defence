@@ -224,7 +224,7 @@ export default function PartnersSection() {
                   src={partner.logoSrc}
                   alt={`${partner.name} logo`}
                   fill
-                  sizes="(max-width: 680px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  sizes="(max-width: 575px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   className={styles.logo}
                 />
               </div>

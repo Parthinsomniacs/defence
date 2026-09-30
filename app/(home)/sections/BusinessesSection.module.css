@@ -51,12 +51,12 @@
     height: auto;
     min-height: auto;
     overflow: visible;
-    padding-top: 80px;
-    padding-bottom: 90px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 
   .inner {
-    margin: 0 var(--layout-margin);
+    margin: 0;
     padding: 0 clamp(1rem, 3vw, var(--layout-padding));
   }
 }
@@ -137,6 +137,15 @@
 }
 
 @media (max-width: 768px) {
+  .header {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .title {
+    font-size: 2.125rem;
+  }
+
   .metaRow {
     flex-direction: column;
     align-items: flex-start;

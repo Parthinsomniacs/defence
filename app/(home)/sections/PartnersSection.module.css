@@ -15,10 +15,11 @@
 
 @media (max-width: 1024px) {
   .section {
-    padding: 44px 0;
+    padding: 40px 0;
   }
 
   .inner {
+    margin: 0;
     padding: 0 clamp(1rem, 3vw, var(--layout-padding));
   }
 }
@@ -79,7 +80,7 @@
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 575px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -88,8 +89,10 @@
 .card {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.75rem;
   aspect-ratio: 16 / 9;
   padding: 1.25rem;
   border-right: 1px solid var(--color-border-subtle);
@@ -110,7 +113,8 @@
 .logoWrap {
   position: relative;
   width: 72%;
-  height: 60%;
+  height: clamp(56px, 7vw, 88px);
+  flex-shrink: 0;
   transition: transform 0.4s ease, opacity 0.35s ease;
 }
 
@@ -121,24 +125,18 @@
 
 .card:hover .logoWrap,
 .card:focus-visible .logoWrap {
-  transform: translateY(-14%) scale(0.9);
-  opacity: 0.35;
+  transform: translateY(-10%) scale(0.92);
 }
 
-/* Hover-revealed data */
+/* Hover-revealed data (sits below the logo) */
 .info {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
-  padding: 0 1.25rem 1.5rem;
   text-align: center;
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(10px);
   transition: opacity 0.35s ease, transform 0.4s ease;
   pointer-events: none;
 }
@@ -164,6 +162,41 @@
   font-size: 0.8125rem;
   line-height: 1.45;
   max-width: 28ch;
+}
+
+/* ========================================
+   TOUCH / MOBILE: info always visible (no hover)
+======================================== */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.125rem;
+  }
+
+  .card {
+    justify-content: flex-start;
+    aspect-ratio: auto;
+    min-height: 180px;
+    padding: 1.25rem 1rem;
+    cursor: default;
+  }
+
+  /* No hover shift on touch: keep the logo steady. */
+  .card:hover .logoWrap,
+  .card:focus-visible .logoWrap {
+    transform: none;
+  }
+
+  /* Info always visible below the logo. */
+  .info {
+    opacity: 1;
+    transform: none;
+  }
+
+  .name {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    max-width: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

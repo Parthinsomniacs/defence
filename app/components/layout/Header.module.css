@@ -464,7 +464,7 @@
 
 @media (max-width: 1024px) {
   .inner {
-    margin: 0 clamp(1rem, 4vw, 2.5rem);
+    margin: 0;
     padding: 16px clamp(1rem, 3vw, 30px);
   }
 
@@ -540,6 +540,12 @@
     align-items: flex-start;
     gap: 1rem;
   }
+
+  /* Shrink the LETS TALK header button */
+  .actions > a {
+    padding: 11px 15px;
+    font-size: 0.75rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -553,6 +559,12 @@
 
   .contactImages {
     gap: 0.5rem;
+  }
+
+  .actions > a {
+    padding: 10px 13px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
   }
 }
 

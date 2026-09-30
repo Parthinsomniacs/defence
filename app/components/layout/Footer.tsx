@@ -126,27 +126,8 @@ export default function Footer() {
         {/* Dotted Divider */}
         <hr className={styles.divider} aria-hidden="true" />
 
-        {/* Bottom Section: Giant ANUVYOM typography + Meta Credits */}
+        {/* Bottom Section: Meta Credits + Giant ANUVYOM typography */}
         <div className={styles.bottom}>
-          <div className={styles.studioDisplay}>
-            <span className={styles.studioText}>
-              ANUVY
-              <span className={styles.letterO}>
-                O
-                <span className={styles.avatarHolder}>
-                  <Image
-                    src="/images/footer%20Robotics%20img.png"
-                    alt="Robotics"
-                    fill
-                    sizes="(max-width: 768px) 60px, 140px"
-                    className={styles.avatarImg}
-                  />
-                </span>
-              </span>
-              M
-            </span>
-          </div>
-
           <div className={styles.metaBlock}>
             <div className={styles.legalLinks}>
               <Link href="#style-guide" className={styles.metaLink}>
@@ -164,6 +145,25 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} Anuvyom Alliance Private Limited.
               All rights reserved.
             </p>
+          </div>
+
+          <div className={styles.studioDisplay}>
+            <span className={styles.studioText}>
+              ANUVY
+              <span className={styles.letterO}>
+                O
+                <span className={styles.avatarHolder}>
+                  <Image
+                    src="/images/footer%20Robotics%20img.png"
+                    alt="Robotics"
+                    fill
+                    sizes="(max-width: 768px) 60px, 140px"
+                    className={styles.avatarImg}
+                  />
+                </span>
+              </span>
+              M
+            </span>
           </div>
         </div>
       </div>

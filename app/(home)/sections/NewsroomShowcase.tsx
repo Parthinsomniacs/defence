@@ -170,6 +170,15 @@ export default function NewsroomShowcase() {
 
                   <div className={styles.detail}>
                     <div className={styles.detailInner}>
+                      <div className={styles.detailMedia}>
+                        <Image
+                          src={item.imageSrc}
+                          alt={item.imageAlt}
+                          fill
+                          sizes="100vw"
+                          className={styles.detailImage}
+                        />
+                      </div>
                       <div className={styles.meta}>
                         <span className={styles.sector}>{item.sector}</span>
                         <span className={styles.date}>{item.date}</span>

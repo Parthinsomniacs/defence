@@ -15,10 +15,11 @@
 
 @media (max-width: 1024px) {
   .section {
-    padding: 60px 0;
+    padding: 40px 0;
   }
 
   .inner {
+    margin: 0;
     padding: 0 clamp(1rem, 3vw, var(--layout-padding));
   }
 }
@@ -179,6 +180,16 @@
   padding-bottom: 1.5rem;
 }
 
+/* Inline image inside the expanded detail (mobile only). */
+.detailMedia {
+  display: none;
+}
+
+.detailImage {
+  object-fit: cover;
+  object-position: center;
+}
+
 .meta {
   display: flex;
   align-items: center;
@@ -286,9 +297,38 @@
     gap: 1.5rem;
   }
 
+  /* Hide the shared top panel; show each item's image inline on click. */
   .media {
-    order: -1;
+    display: none;
+  }
+
+  .detailMedia {
+    display: block;
+    position: relative;
+    width: 100%;
     aspect-ratio: 16 / 10;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-surface-card);
+  }
+}
+
+/* Step the single-line title down so it fits without clipping. */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.125rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .title {
+    font-size: 2.125rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .title {
+    font-size: 1.75rem;
   }
 }
 

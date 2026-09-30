@@ -8,7 +8,7 @@ export default function TextLoopSection() {
         className={styles.loop}
         text="Spotlight: Anuvyom Making Headlines"
         shape="line"
-        viewHeight={64}
+        viewHeight={110}
         speed={50}
         direction="forward"
         separator="✦"
@@ -20,7 +20,7 @@ export default function TextLoopSection() {
         color="var(--color-surface-deep)"
         ribbon
         ribbonColor="var(--color-accent)"
-        ribbonWidth={54}
+        ribbonWidth={96}
         pauseOnHover
       />
     </section>
