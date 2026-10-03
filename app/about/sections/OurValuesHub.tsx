@@ -57,207 +57,220 @@ export default function OurValuesHub() {
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
-    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    const ctx = gsap.context(() => {
-      if (isDesktop && !prefersReducedMotion) {
-        // 1. Initial stroke-dash setup for tactical radar paths
-        const mainPaths = wrapperRef.current?.querySelectorAll<SVGGeometryElement>(
-          `.${styles.mainSvgPath}`
-        );
-        mainPaths?.forEach((p) => {
-          try {
-            const len = p.getTotalLength?.() || 150;
-            p.style.strokeDasharray = `${len}`;
-            p.style.strokeDashoffset = `${len}`;
-          } catch {
-            p.style.strokeDasharray = "150";
-            p.style.strokeDashoffset = "150";
-          }
-        });
+    const mm = gsap.matchMedia();
 
-        // 2. Initial stroke-dash setup for 4 circuit paths
-        const circuitLines = [
-          line1Ref.current,
-          line2Ref.current,
-          line3Ref.current,
-          line4Ref.current,
-        ];
-        circuitLines.forEach((line) => {
-          if (line) {
-            try {
-              const len = line.getTotalLength?.() || 300;
-              line.style.strokeDasharray = `${len}`;
-              line.style.strokeDashoffset = `${len}`;
-            } catch {
-              line.style.strokeDasharray = "300";
-              line.style.strokeDashoffset = "300";
-            }
-          }
-        });
+    // 1. DESKTOP (>= 1024px): Pinned scrub animation
+    mm.add("(min-width: 1024px)", () => {
+      if (prefersReducedMotion) return;
 
-        // Hide decor and cards initially
-        const decorElements = wrapperRef.current?.querySelectorAll(
-          `.${styles.mainSvgDecorate}`
-        );
-        if (decorElements) {
-          gsap.set(decorElements, { opacity: 0 });
+      // 1. Initial stroke-dash setup for tactical radar paths
+      const mainPaths = wrapperRef.current?.querySelectorAll<SVGGeometryElement>(
+        `.${styles.mainSvgPath}`
+      );
+      mainPaths?.forEach((p) => {
+        try {
+          const len = p.getTotalLength?.() || 150;
+          p.style.strokeDasharray = `${len}`;
+          p.style.strokeDashoffset = `${len}`;
+        } catch {
+          p.style.strokeDasharray = "150";
+          p.style.strokeDashoffset = "150";
         }
-        cardRefs.current.forEach((card) => {
-          if (card) gsap.set(card, { opacity: 0 });
-        });
+      });
 
-        // Vertical drop line from top down to touch the dial ticks
-        if (verticalLineRef.current) {
+      // 2. Initial stroke-dash setup for 4 circuit paths
+      const circuitLines = [
+        line1Ref.current,
+        line2Ref.current,
+        line3Ref.current,
+        line4Ref.current,
+      ];
+      circuitLines.forEach((line) => {
+        if (line) {
           try {
-            const len = verticalLineRef.current.getTotalLength?.() || 160;
-            verticalLineRef.current.style.strokeDasharray = `${len}`;
-            verticalLineRef.current.style.strokeDashoffset = `${len}`;
-
-            gsap.to(verticalLineRef.current, {
-              strokeDashoffset: 0,
-              ease: "none",
-              scrollTrigger: {
-                trigger: wrapperRef.current,
-                start: "top 85%",
-                end: "top 45%",
-                scrub: 1,
-              },
-            });
+            const len = line.getTotalLength?.() || 300;
+            line.style.strokeDasharray = `${len}`;
+            line.style.strokeDashoffset = `${len}`;
           } catch {
-            // fallback
+            line.style.strokeDasharray = "300";
+            line.style.strokeDashoffset = "300";
           }
         }
+      });
 
-        // 3. MASTER PINNED SCRUB TIMELINE (Exact Mirach Aerospace Flow)
-        const masterTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: wrapperRef.current,
-            start: "center center",
-            end: "+=2800",
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1,
-          },
-        });
+      // Hide decor and cards initially
+      const decorElements = wrapperRef.current?.querySelectorAll(
+        `.${styles.mainSvgDecorate}`
+      );
+      if (decorElements) {
+        gsap.set(decorElements, { opacity: 0 });
+      }
+      cardRefs.current.forEach((card) => {
+        if (card) gsap.set(card, { opacity: 0 });
+      });
 
-        // Step 1: Tactical Radar Dial draws out
-        if (mainPaths && mainPaths.length > 0) {
-          masterTl.to(mainPaths, {
+      // Vertical drop line from top down to touch the dial ticks
+      if (verticalLineRef.current) {
+        try {
+          const len = verticalLineRef.current.getTotalLength?.() || 160;
+          verticalLineRef.current.style.strokeDasharray = `${len}`;
+          verticalLineRef.current.style.strokeDashoffset = `${len}`;
+
+          gsap.to(verticalLineRef.current, {
             strokeDashoffset: 0,
-            duration: 1.2,
-            stagger: 0.015,
-            ease: "power2.out",
-          });
-        }
-
-        // Step 2: Decorative radar tick elements fade in
-        if (decorElements && decorElements.length > 0) {
-          masterTl.to(
-            decorElements,
-            {
-              opacity: 1,
-              duration: 0.5,
-              stagger: 0.03,
+            ease: "none",
+            scrollTrigger: {
+              trigger: wrapperRef.current,
+              start: "top 85%",
+              end: "top 45%",
+              scrub: 1,
             },
-            "-=0.3"
-          );
-        }
-
-        // Step 3: Circuit Line 1 draws -> Card 1 reveals
-        if (line1Ref.current) {
-          masterTl.to(line1Ref.current, {
-            strokeDashoffset: 0,
-            duration: 0.8,
-            ease: "power2.out",
           });
+        } catch {
+          // fallback
         }
-        if (cardRefs.current[0]) {
-          masterTl.fromTo(
-            cardRefs.current[0],
-            { opacity: 0, x: -35 },
-            { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
-            "-=0.4"
-          );
-        }
+      }
 
-        // Step 4: Circuit Line 2 draws -> Card 2 reveals
-        if (line2Ref.current) {
-          masterTl.to(line2Ref.current, {
-            strokeDashoffset: 0,
-            duration: 0.8,
-            ease: "power2.out",
-          });
-        }
-        if (cardRefs.current[1]) {
-          masterTl.fromTo(
-            cardRefs.current[1],
-            { opacity: 0, x: 35 },
-            { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
-            "-=0.4"
-          );
-        }
+      // 3. MASTER PINNED SCRUB TIMELINE (Exact Mirach Aerospace Flow)
+      const masterTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapperRef.current,
+          start: "center center",
+          end: "+=2800",
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
 
-        // Step 5: Circuit Line 3 draws -> Card 3 reveals
-        if (line3Ref.current) {
-          masterTl.to(line3Ref.current, {
-            strokeDashoffset: 0,
-            duration: 0.8,
-            ease: "power2.out",
-          });
-        }
-        if (cardRefs.current[2]) {
-          masterTl.fromTo(
-            cardRefs.current[2],
-            { opacity: 0, x: -35 },
-            { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
-            "-=0.4"
-          );
-        }
+      // Step 1: Tactical Radar Dial draws out
+      if (mainPaths && mainPaths.length > 0) {
+        masterTl.to(mainPaths, {
+          strokeDashoffset: 0,
+          duration: 1.2,
+          stagger: 0.015,
+          ease: "power2.out",
+        });
+      }
 
-        // Step 6: Circuit Line 4 draws -> Card 4 reveals
-        if (line4Ref.current) {
-          masterTl.to(line4Ref.current, {
-            strokeDashoffset: 0,
-            duration: 0.8,
-            ease: "power2.out",
-          });
-        }
-        if (cardRefs.current[3]) {
-          masterTl.fromTo(
-            cardRefs.current[3],
-            { opacity: 0, x: 35 },
-            { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
-            "-=0.4"
-          );
-        }
-      } else {
-        // Mobile / Tablet: Smooth non-pinned entrance animation
+      // Step 2: Decorative radar tick elements fade in
+      if (decorElements && decorElements.length > 0) {
+        masterTl.to(
+          decorElements,
+          {
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.03,
+          },
+          "-=0.3"
+        );
+      }
+
+      // Step 3: Circuit Line 1 draws -> Card 1 reveals
+      if (line1Ref.current) {
+        masterTl.to(line1Ref.current, {
+          strokeDashoffset: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        });
+      }
+      if (cardRefs.current[0]) {
+        masterTl.fromTo(
+          cardRefs.current[0],
+          { opacity: 0, x: -35 },
+          { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
+          "-=0.4"
+        );
+      }
+
+      // Step 4: Circuit Line 2 draws -> Card 2 reveals
+      if (line2Ref.current) {
+        masterTl.to(line2Ref.current, {
+          strokeDashoffset: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        });
+      }
+      if (cardRefs.current[1]) {
+        masterTl.fromTo(
+          cardRefs.current[1],
+          { opacity: 0, x: 35 },
+          { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
+          "-=0.4"
+        );
+      }
+
+      // Step 5: Circuit Line 3 draws -> Card 3 reveals
+      if (line3Ref.current) {
+        masterTl.to(line3Ref.current, {
+          strokeDashoffset: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        });
+      }
+      if (cardRefs.current[2]) {
+        masterTl.fromTo(
+          cardRefs.current[2],
+          { opacity: 0, x: -35 },
+          { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
+          "-=0.4"
+        );
+      }
+
+      // Step 6: Circuit Line 4 draws -> Card 4 reveals
+      if (line4Ref.current) {
+        masterTl.to(line4Ref.current, {
+          strokeDashoffset: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        });
+      }
+      if (cardRefs.current[3]) {
+        masterTl.fromTo(
+          cardRefs.current[3],
+          { opacity: 0, x: 35 },
+          { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
+          "-=0.4"
+        );
+      }
+    });
+
+    // 2. MOBILE & TABLET (< 1024px): NO PINNING, NO 2800px PIN SPACER!
+    mm.add("(max-width: 1023px)", () => {
+      // Clear any inline styles left over so cards render naturally
+      cardRefs.current.forEach((card) => {
+        if (!card) return;
+        gsap.set(card, { clearProps: "all" });
+      });
+
+      if (!prefersReducedMotion) {
         cardRefs.current.forEach((card, idx) => {
           if (!card) return;
           gsap.fromTo(
             card,
-            { opacity: 0, y: 30 },
+            { opacity: 0, y: 24 },
             {
               opacity: 1,
               y: 0,
-              duration: prefersReducedMotion ? 0.01 : 0.6,
+              duration: 0.5,
               ease: "power2.out",
               scrollTrigger: {
                 trigger: card,
-                start: "top 85%",
+                start: "top 90%",
+                toggleActions: "play none none none",
               },
-              delay: idx * 0.1,
+              delay: idx * 0.08,
             }
           );
         });
       }
-    }, wrapperRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
