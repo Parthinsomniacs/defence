@@ -35,17 +35,13 @@ export default function AboutManifesto() {
 
           <div className={styles.imageBlock}>
             <Image
-              src="/images/cta-mission-theater.jpg"
+              src="/images/aboutus%20page%201.jpg"
               alt="Anuvyom strategic aerospace and defence capabilities"
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"
               className={styles.manifestoImage}
             />
             <div className={styles.imageOverlay} />
-            <div className={styles.imageBadge}>
-              <span className={styles.imageBadgeDot} aria-hidden="true" />
-              <span>STRATEGIC CAPABILITY</span>
-            </div>
           </div>
         </div>
       </div>

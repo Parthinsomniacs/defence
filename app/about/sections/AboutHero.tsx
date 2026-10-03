@@ -3,8 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import AnimatedButton from "@/app/components/ui/AnimatedButton";
-import styles from "@/app/(home)/sections/Hero.module.css";
+import styles from "./AboutHero.module.css";
 
 gsap.registerPlugin(SplitText);
 
@@ -19,7 +18,6 @@ export default function AboutHero() {
     let split: SplitText | null = null;
 
     const ctx = gsap.context(() => {
-      const items = gsap.utils.toArray<HTMLElement>("[data-hero]");
       const title = rootRef.current?.querySelector<HTMLElement>(
         "[data-hero-title]"
       );
@@ -42,21 +40,6 @@ export default function AboutHero() {
             stagger: reduceMotion ? 0 : 0.08,
           },
           0
-        );
-      }
-
-      // Supporting text + buttons cascade in.
-      if (items.length) {
-        tl.fromTo(
-          items,
-          { y: 30, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: reduceMotion ? 0.01 : 0.8,
-            stagger: reduceMotion ? 0 : 0.12,
-          },
-          reduceMotion ? 0 : 0.35
         );
       }
 
@@ -90,7 +73,7 @@ export default function AboutHero() {
       <div className={styles.bgWrapper} aria-hidden="true">
         <video
           className={styles.bgVideo}
-          src="/images/hero-video.mp4"
+          src="/images/aboutus%20Hero%20Video.mov"
           poster="/images/hero-editorial.jpg"
           autoPlay
           muted
@@ -112,26 +95,8 @@ export default function AboutHero() {
       {/* Main Content Layout */}
       <div className={styles.inner}>
         <div className={styles.content}>
-          {/* Bottom Left Info & CTA */}
-          <div className={styles.leftBlock}>
-            <span className={styles.squareIndicator} aria-hidden="true" data-hero />
-            <p className={styles.headline} data-hero>
-              ENGINEERING STRATEGIC CAPABILITY<br />
-              SOVEREIGN INDUSTRIAL POWER<br />
-              FOR THE NEXT DECADE
-            </p>
-            <div className={styles.buttonGroup} data-hero>
-              <AnimatedButton href="#mission-vision">
-                Our Mission
-              </AnimatedButton>
-              <AnimatedButton href="#group-of-companies">
-                Group Sectors
-              </AnimatedButton>
-            </div>
-          </div>
-
-          {/* Bottom Right: Tagline + Giant ABOUT US Typography */}
-          <div className={styles.rightBlock}>
+          {/* Tagline + Giant ABOUT US Typography */}
+          <div className={styles.heroBlock}>
             <div className={styles.tagline}>
               <span data-tagline>Aerospace</span>
               <span className={styles.slash} aria-hidden="true" data-tagline>

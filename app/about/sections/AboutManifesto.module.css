@@ -150,31 +150,6 @@
   pointer-events: none;
 }
 
-.imageBadge {
-  position: absolute;
-  bottom: 1.25rem;
-  left: 1.25rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: rgba(12, 13, 16, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--color-border-subtle);
-  padding: 0.4rem 0.75rem;
-  font-family: var(--font-primary);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-}
-
-.imageBadgeDot {
-  width: 6px;
-  height: 6px;
-  background-color: var(--color-accent);
-}
 
 /* ==========================================================================
    RESPONSIVE LADDER (Strict compliance with .kiro/steering/responsive.md)
@@ -342,10 +317,6 @@
     min-height: 220px;
   }
 
-  .imageBadge {
-    font-size: 0.7rem;
-    padding: 0.35rem 0.6rem;
-  }
 }
 
 @media (max-width: 360px) {

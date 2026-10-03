@@ -321,33 +321,12 @@
   }
 
   .pinContainer {
-    flex-direction: column;
+    display: block;
     min-height: auto;
-    gap: 3rem;
   }
 
   .centerGraphicBox {
-    position: relative;
-    left: auto;
-    top: auto;
-    transform: none;
-    max-width: 320px;
-    height: 320px;
-    margin: 0 auto 2rem;
-  }
-
-  .circuitSvg {
     display: none;
-  }
-
-  .centerOrb {
-    width: 140px;
-    height: 140px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.2rem;
   }
 
   .cardsGrid {
@@ -378,17 +357,6 @@
   .cardTitle {
     font-size: 1.2rem;
   }
-
-  .centerGraphicBox {
-    max-width: 270px;
-    height: 270px;
-  }
-
-  .centerOrb {
-    width: 125px;
-    height: 125px;
-    font-size: 1.1rem;
-  }
 }
 
 @media (max-width: 575px) {
@@ -409,34 +377,11 @@
   .cardDescription {
     font-size: 0.85rem;
   }
-
-  .centerGraphicBox {
-    max-width: 240px;
-    height: 240px;
-    margin-bottom: 1.5rem;
-  }
-
-  .centerOrb {
-    width: 115px;
-    height: 115px;
-    font-size: 1rem;
-  }
 }
 
 @media (max-width: 480px) {
   .valuesWrapper {
     margin-top: 3rem;
-  }
-
-  .centerGraphicBox {
-    max-width: 220px;
-    height: 220px;
-  }
-
-  .centerOrb {
-    width: 105px;
-    height: 105px;
-    font-size: 0.95rem;
   }
 }
 

@@ -164,12 +164,6 @@ export default function Header() {
     };
   }, [isOpen]);
 
-  // Split the nav into two columns: everything before "Careers" in the
-  // first column, "Careers" onwards in the second.
-  const splitIndex = pageLinks.findIndex((item) => item.label === "Careers");
-  const primaryLinks = splitIndex === -1 ? pageLinks : pageLinks.slice(0, splitIndex);
-  const secondaryLinks = splitIndex === -1 ? [] : pageLinks.slice(splitIndex);
-
   const renderNavItem = (item: (typeof pageLinks)[number]) => {
     const isExpanded = expandedItem === item.label;
 
@@ -297,16 +291,9 @@ export default function Header() {
             {/* Left: navigation */}
             <div className={styles.drawerNav}>
               <div className={styles.drawerContent}>
-                <div className={styles.drawerCol}>
-                  <ul className={styles.drawerList}>
-                    {primaryLinks.map(renderNavItem)}
-                  </ul>
-                </div>
-                <div className={styles.drawerCol}>
-                  <ul className={styles.drawerList}>
-                    {secondaryLinks.map(renderNavItem)}
-                  </ul>
-                </div>
+                <ul className={styles.drawerList}>
+                  {pageLinks.map(renderNavItem)}
+                </ul>
               </div>
 
               <ul className={styles.socialRow} data-reveal>

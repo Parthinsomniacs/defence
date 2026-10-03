@@ -219,6 +219,8 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .headingBlock {
@@ -244,6 +246,8 @@
   line-height: 1.2;
   letter-spacing: -0.015em;
   color: #ffffff;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .paragraphsBlock {
@@ -259,6 +263,7 @@
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.82);
   font-weight: 400;
+  overflow-wrap: break-word;
 }
 
 /* ========================================
@@ -291,6 +296,8 @@
   .inner {
     padding: 90px 24px;
     margin: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   .detailPanel {
@@ -299,24 +306,31 @@
   }
 
   .detailGrid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.25rem;
+  }
+
+  .detailLeftCol {
+    height: auto;
+    width: 100%;
+    min-width: 0;
   }
 
   .imageCard {
-    min-height: 340px;
-    max-height: 460px;
+    height: auto;
+    min-height: unset;
+    max-height: unset;
     aspect-ratio: 16 / 9;
   }
 
   .detailHeading {
-    font-size: 2.2rem;
+    font-size: clamp(1.65rem, 3vw, 2.2rem);
   }
 }
 
 @media (max-width: 768px) {
   .inner {
-    padding: 80px 16px;
+    padding: 80px 20px;
     margin: 0;
   }
 
@@ -327,11 +341,18 @@
   }
 
   .list {
-    gap: 1rem;
+    gap: 1.5rem;
+  }
+
+  .itemWrapper {
+    padding: 0.75rem 0.5rem;
   }
 
   .title {
-    font-size: clamp(1.4rem, 4.4vw, 36px);
+    font-size: clamp(1.25rem, 4.5vw, 1.85rem);
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
   }
 
   .titleBlurred {
@@ -339,58 +360,122 @@
   }
 
   .pillBadge {
-    padding: 0.45rem 1.25rem;
-    font-size: 0.8125rem;
-    white-space: normal;
-    max-width: 90vw;
-    line-height: 1.35;
+    padding: 0.45rem 1.15rem;
+    font-size: clamp(0.72rem, 2.2vw, 0.85rem);
+    white-space: nowrap;
+    max-width: 94vw;
+    line-height: 1.2;
     text-align: center;
   }
 
+  .detailPanel {
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+  }
+
+  .detailGrid {
+    gap: 1.75rem;
+  }
+
   .imageCard {
-    min-height: 260px;
+    height: auto;
+    min-height: unset;
+    max-height: unset;
+    aspect-ratio: 16 / 9;
     border-radius: 12px;
   }
 
+  .detailEyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+  }
+
   .detailHeading {
-    font-size: 1.85rem;
+    font-size: clamp(1.35rem, 5vw, 1.7rem);
+    line-height: 1.35;
+  }
+
+  .paragraphsBlock {
+    gap: 1.25rem;
   }
 
   .detailParagraph {
-    font-size: 1rem;
-    line-height: 1.68;
+    font-size: 0.9375rem;
+    line-height: 1.75;
   }
 }
 
 @media (max-width: 480px) {
   .inner {
-    padding: 70px 12px;
+    padding: 60px 16px;
   }
 
   .eyebrow {
     font-size: 0.6875rem;
     letter-spacing: 0.14em;
+    margin-bottom: 2rem;
+  }
+
+  .list {
+    gap: 1.35rem;
+  }
+
+  .itemWrapper {
+    padding: 0.65rem 0.25rem;
   }
 
   .title {
-    font-size: clamp(1.05rem, 4.2vw, 24px);
+    font-size: clamp(1.05rem, 4.2vw, 1.35rem);
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.45;
   }
 
   .pillBadge {
-    padding: 0.4rem 0.95rem;
-    font-size: 0.725rem;
-    white-space: normal;
-    max-width: 92vw;
-    line-height: 1.35;
+    padding: 0.38rem 0.85rem;
+    font-size: clamp(0.64rem, 2.7vw, 0.75rem);
+    white-space: nowrap;
+    max-width: 95vw;
+    line-height: 1.2;
     text-align: center;
   }
 
+  .detailPanel {
+    margin-top: 2rem;
+    padding-top: 2rem;
+  }
+
+  .detailGrid {
+    gap: 1.5rem;
+  }
+
   .imageCard {
-    min-height: 220px;
+    height: auto;
+    min-height: unset;
+    max-height: unset;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+  }
+
+  .detailEyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
   }
 
   .detailHeading {
-    font-size: 1.6rem;
+    font-size: clamp(1.2rem, 5.5vw, 1.45rem);
+    line-height: 1.35;
+  }
+
+  .paragraphsBlock {
+    gap: 1.15rem;
+  }
+
+  .detailParagraph {
+    font-size: 0.875rem;
+    line-height: 1.7;
   }
 }
 

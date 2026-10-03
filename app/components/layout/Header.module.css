@@ -164,13 +164,9 @@
 }
 
 .drawerContent {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
-  padding: 1rem 0 0;
-  /* Keep the two link columns grouped so they don't spread across a wide
-     nav area on large screens (prevents the loose/unbalanced look). */
+  width: 100%;
   max-width: 640px;
+  padding: 1rem 0 0;
 }
 
 /* Social links row (bottom-left of the menu). */
@@ -284,36 +280,40 @@
   background-color: var(--color-accent-strong);
 }
 
-.drawerCol {
-  display: flex;
-  flex-direction: column;
-}
-
 .drawerList {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 3.5rem;
+  row-gap: 1.35rem;
 }
 
 .drawerItem {
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .drawerLink {
   color: #ffffff;
+  font-family: inherit;
   font-size: clamp(1.5rem, 4vw, 48px);
   font-weight: 500;
+  line-height: 1.25;
   text-decoration: none;
   transition:
     color 0.18s ease,
     transform 0.18s ease;
   display: inline-flex;
   align-items: center;
-  gap: 0.35em;
+  gap: 0.4em;
+  padding: 0.35rem 0;
+  box-sizing: border-box;
 }
 
 .drawerLink:hover {
@@ -342,15 +342,16 @@
   border: 0;
   cursor: pointer;
   text-align: left;
+  margin: 0;
 }
 
 /* Chevron sits right next to the label; rotation is handled by GSAP. */
 .chevronIcon {
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 0.55em;
+  height: 0.55em;
   flex-shrink: 0;
-  margin-left: 0.4rem;
-  color: #ffffff;
+  margin-left: 0.3em;
+  color: currentColor;
   transform-origin: center;
 }
 
@@ -366,11 +367,15 @@
 .drawerSubWrap {
   display: grid;
   grid-template-rows: 0fr;
+  overflow: hidden;
   transition: grid-template-rows 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .drawerSubWrapOpen {
   grid-template-rows: 1fr;
+  overflow: visible;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .drawerSubWrap > .drawerSubList {
@@ -380,13 +385,13 @@
 
 .drawerSubList {
   list-style: none;
-  margin: 0.4rem 0 0.4rem;
+  margin: 0;
+  padding: 0;
   /* Indent sub-items to align with where the parent link's text begins. */
   margin-left: clamp(1.7rem, 4.6vw, 3.4rem);
-  padding: 0.2rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.75rem;
 }
 
 .drawerSubItem {
@@ -413,7 +418,7 @@
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0;
+  padding: 0.35rem 0;
   transition:
     color 0.2s ease,
     padding-left 0.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -446,10 +451,6 @@
     font-size: 1.5rem;
   }
 
-  .chevronIcon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
 }
 
 @media (max-width: 1216px) {
@@ -488,9 +489,15 @@
 }
 
 @media (max-width: 768px) {
-  /* Nav stays two columns here; tighten the column gap only. */
   .drawerContent {
-    gap: 1.5rem;
+    max-width: 100%;
+  }
+
+  .drawerList {
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    row-gap: 1.25rem;
   }
 
   .drawerLink {
@@ -501,17 +508,16 @@
     font-size: 1.125rem;
   }
 
-  .chevronIcon {
-    width: 1.4rem;
-    height: 1.4rem;
-  }
 }
 
 @media (max-width: 575px) {
-  /* Nav collapses to a single column from here down. */
-  .drawerContent {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.75rem;
+  .drawerList {
+    row-gap: 1.25rem;
+  }
+
+  .drawerSubList {
+    gap: 0.65rem;
+    margin-left: 2rem;
   }
 
   .drawerLink {
@@ -549,6 +555,20 @@
 }
 
 @media (max-width: 480px) {
+  .drawerList {
+    row-gap: 1.15rem;
+  }
+
+  .drawerSubWrapOpen {
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .drawerSubList {
+    gap: 0.6rem;
+    margin-left: 1.75rem;
+  }
+
   .drawerLink {
     font-size: 1.375rem;
   }
