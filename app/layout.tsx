@@ -28,8 +28,8 @@ const boldonse = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Anuvyom Alliance Private Limited | Aerospace, Defence, Advanced Systems & Petrochemical",
-    template: "%s | Anuvyom Alliance",
+    default: "Sky Wardens Private Limited | Aerospace, Defence, Advanced Systems & Petrochemical",
+    template: "%s | Sky Wardens",
   },
   description:
     "Strategic industrial capability across aerospace, defence, advanced systems, and petrochemical sectors.",

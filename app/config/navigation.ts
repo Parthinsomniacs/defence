@@ -40,7 +40,7 @@ export const pageLinks: NavLink[] = [
   { label: "Affiliations", href: "/affiliations" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
-  { label: "E-Shop", href: "https://anuvyom.com", external: true },
+  { label: "E-Shop", href: "https://skywardens.com", external: true },
 ];
 
 // Focus / sector areas (derived from the Products sub-menu).

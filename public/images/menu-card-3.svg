@@ -7,7 +7,7 @@
   </defs>
   <rect width="300" height="300" fill="url(#bg3)"/>
   <!-- Topographic / terrain contour lines -->
-  <g stroke="#9af0ff" stroke-opacity="0.35" fill="none" stroke-width="1.5">
+  <g stroke="#105784" stroke-opacity="0.35" fill="none" stroke-width="1.5">
     <path d="M-10 220 C 60 190, 120 250, 180 210 S 280 170, 320 200"/>
     <path d="M-10 180 C 70 150, 130 210, 190 168 S 285 128, 320 160"/>
     <path d="M-10 140 C 80 112, 140 168, 200 126 S 290 86, 320 120"/>
@@ -15,6 +15,6 @@
   </g>
   <!-- flight path -->
   <path d="M40 250 Q 150 40, 260 120" stroke="#4dd9ff" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
-  <circle cx="260" cy="120" r="5" fill="#9af0ff"/>
+  <circle cx="260" cy="120" r="5" fill="#105784"/>
   <circle cx="40" cy="250" r="3.5" fill="#4dd9ff"/>
 </svg>

@@ -57,8 +57,19 @@ function ChevronIcon({ label }: { label: string }) {
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const closeMenu = () => {
     setIsOpen(false);
@@ -238,19 +249,28 @@ export default function Header() {
   };
 
   return (
-    <header className={styles.header}>
+    <header
+      className={`${styles.header} ${isScrolled ? styles.headerScrolled : ""} ${isOpen ? styles.headerOpen : ""}`.trim()}
+    >
       <div className={styles.inner}>
         {/* Brand / Logo */}
-        <Link href="/" className={styles.brand} aria-label="Home">
+        <Link href="/" className={styles.brand} aria-label="Sky Wardens Home">
           <Image
-            src="/images/logo-white-zoom.webp"
-            alt="Logo"
+            src="/images/New Logo s/Icon.png"
+            alt="Sky Wardens Icon"
             width={44}
-            height={44}
+            height={42}
             priority
-            className={styles.logoImage}
+            className={styles.logoIcon}
           />
-          <span className={styles.brandName}>ANUVYOM</span>
+          <Image
+            src="/images/New Logo s/Text.png"
+            alt="Sky Wardens"
+            width={178}
+            height={18}
+            priority
+            className={styles.logoText}
+          />
         </Link>
 
         {/* Right Actions: 2 Separate Buttons (LETS TALK + Hamburger Menu) */}

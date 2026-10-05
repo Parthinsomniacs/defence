@@ -279,7 +279,7 @@ export default function AboutSection() {
                   DEFENCE WORLD NEEDS
                 </h3>
                 <p className={styles.description} data-about-desc>
-                  Anuvyom was established to develop durable industrial
+                  Sky Wardens was established to develop durable industrial
                   capability, the kind that takes years to build and decades to
                   matter.
                 </p>

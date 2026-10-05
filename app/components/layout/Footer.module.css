@@ -9,17 +9,13 @@
 
 .inner {
   margin: 0 var(--layout-margin);
-  padding: var(--layout-padding);
+  padding: var(--layout-padding) var(--layout-padding) 0;
 }
 
 @media (max-width: 1024px) {
   .inner {
     margin: 0;
-    padding: 40px clamp(1rem, 3vw, 30px);
-  }
-
-  .studioText {
-    font-size: clamp(1.75rem, 6vw, 3rem);
+    padding: 40px clamp(1rem, 3vw, 30px) 0;
   }
 }
 
@@ -68,20 +64,21 @@
   text-decoration: none;
 }
 
-.logoImage {
-  width: 44px;
-  height: 44px;
+.logoIcon {
+  width: auto;
+  height: 46px;
   object-fit: contain;
   flex-shrink: 0;
   display: block;
 }
 
-.brandName {
-  font-family: var(--font-primary);
-  font-size: 1.625rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: var(--color-text);
+.logoText {
+  width: auto;
+  height: 19px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+  filter: brightness(0) invert(1);
 }
 
 .brandDescription {
@@ -93,33 +90,7 @@
 }
 
 .brandCta {
-  margin-bottom: 2rem;
-}
-
-.locationBlock {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-top: auto;
-  padding-top: 0.5rem;
-}
-
-.locationIconWrapper {
-  color: var(--color-text);
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.addressText {
-  margin: 0;
-  color: var(--color-text-secondary);
-  font-size: 0.875rem;
-  line-height: 1.5;
-  max-width: 26ch;
+  margin-bottom: 0;
 }
 
 /* --- Data Columns (NAVIGATION, FOCUS, SOCIAL) --- */
@@ -216,87 +187,59 @@
 
 /* ========================================
    DIVIDER
-======================================== */
-.divider {
-  border: 0;
-  border-top: 1px dotted rgba(255, 255, 255, 0.22);
-  margin: 32px 0 20px;
-}
-
 /* ========================================
-   BOTTOM SECTION (STUDIO Display + Meta)
+   MIDDLE INFO ROW (Address + Meta Links)
 ======================================== */
-.bottom {
+.middleRow {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
-  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  gap: 1.25rem;
+  padding: 2.5rem 0 1.25rem;
 }
 
-@media (min-width: 900px) {
-  .bottom {
+@media (min-width: 768px) {
+  .middleRow {
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
-    gap: 3rem;
+    gap: 2rem;
   }
 }
 
-/* Giant STUDIO text with embedded avatar in 'O' */
-.studioDisplay {
+.locationBlock {
   display: inline-flex;
-  align-items: center;
-  user-select: none;
-  line-height: 0.85;
+  align-items: flex-start;
+  gap: 0.75rem;
 }
 
-.studioText {
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 12vw, 12rem);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+.locationIconWrapper {
   color: var(--color-text);
-  line-height: 0.82;
-  text-transform: uppercase;
-}
-
-.letterO {
-  position: relative;
-  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
-.avatarHolder {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 0.62em;
-  height: 0.62em;
-  border-radius: 50%;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.avatarImg {
-  object-fit: cover;
-  display: block;
+.addressText {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.65;
 }
 
 /* Meta block on the right */
 .metaBlock {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
   font-size: 0.875rem;
   color: var(--color-text-secondary);
   flex-shrink: 0;
-  padding-bottom: 0.5rem;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .metaBlock {
     text-align: right;
     align-items: flex-end;
@@ -307,7 +250,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
 }
 
 .metaLink {
@@ -327,4 +270,48 @@
 .creditsLine {
   margin: 0;
   color: var(--color-text-secondary);
+}
+
+/* ========================================
+   SINGLE DIVIDER
+======================================== */
+.divider {
+  border: 0;
+  border-top: 1px solid var(--color-border-subtle);
+  margin: 0;
+  width: 100%;
+}
+
+/* ========================================
+   BOTTOM SECTION (Giant SKY WARDENS Text)
+======================================== */
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: clamp(2rem, 3.5vw, 3.5rem) 0 0.5rem;
+}
+
+.studioDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  user-select: none;
+}
+
+.studioText {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 11.2vw, 20rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-text);
+  line-height: 1.15;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  display: block;
+  padding: 0.08em 0;
 }

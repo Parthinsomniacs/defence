@@ -26,7 +26,7 @@ const sectors: Sector[] = [
     imageSrc: "/images/business-aerospace.jpg",
     imageAlt: "Advanced aerospace defence aircraft platform",
     logoSrc: "/images/aerospace.png",
-    logoAlt: "Anuvyom Aerospace Division",
+    logoAlt: "Sky Wardens Aerospace Division",
     specs: [
       "Tactical UAV Platforms",
       "Composite Airframe Engineering",
@@ -43,7 +43,7 @@ const sectors: Sector[] = [
     imageSrc: "/images/business-systems.jpg",
     imageAlt: "Tactical defence workstation and engineer operations",
     logoSrc: "/images/defence.png",
-    logoAlt: "Anuvyom Defence Division",
+    logoAlt: "Sky Wardens Defence Division",
     specs: [
       "Sovereign Tactical Hardware",
       "Precision Ordnance Systems",
@@ -60,7 +60,7 @@ const sectors: Sector[] = [
     imageSrc: "/images/business-tactical.jpg",
     imageAlt: "Tactical telemetry and advanced defence interface",
     logoSrc: "/images/advanced-systems.png",
-    logoAlt: "Anuvyom Advanced Systems Division",
+    logoAlt: "Sky Wardens Advanced Systems Division",
     specs: [
       "C4ISR Command Architecture",
       "Tactical Electronic Defense",
@@ -77,7 +77,7 @@ const sectors: Sector[] = [
     imageSrc: "/images/business-energy.jpg",
     imageAlt: "Industrial petrochemical and energy infrastructure",
     logoSrc: "/images/petrochem.png",
-    logoAlt: "Anuvyom Petrochemical Division",
+    logoAlt: "Sky Wardens Petrochemical Division",
     specs: [
       "Critical Energy Infrastructure",
       "High-Performance Industrial Polymers",

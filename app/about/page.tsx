@@ -7,7 +7,7 @@ import MissionVisionSection from "./sections/MissionVisionSection";
 import ProductsSection from "./sections/ProductsSection";
 
 export const metadata: Metadata = {
-  title: "About Us | Anuvyom Alliance",
+  title: "About Us | Sky Wardens",
   description:
     "Engineering strategic sovereign capability across aerospace, defence, advanced systems, and petrochemical sectors.",
 };

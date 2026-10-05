@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import AnimatedTitle from "@/app/components/ui/AnimatedTitle";
 import styles from "./ContactFormSection.module.css";
 
 const subjectOptions = [
-  "Aerospace Platforms & Autonomous Systems",
-  "Defence Manufacturing & Protective Armor",
-  "Advanced Electronic Systems & Sensors",
-  "Petrochemical & Industrial Lubrication",
-  "Strategic Institutional Partnerships",
+  "Product(s) Inquiry",
+  "Strategic Partnership / Joint Venture",
+  "Procurement / Tender",
+  "Distributor / Channel Partnership",
+  "Institutional / Government Engagement",
+  "Affiliations / Collaboration",
+  "Careers / Recruitment",
+  "Media / Corporate Communication",
   "General Inquiry",
 ];
 
@@ -36,13 +40,17 @@ export default function ContactFormSection() {
     >
       <div className={styles.inner}>
         <div className={styles.grid}>
-          {/* Left Column: Eyebrow + Call to Action Heading */}
+          {/* Left Column: Call to Action Heading & Subtitle */}
           <div className={styles.leftCol}>
-            <span className={styles.eyebrow}>[ CONTACT US ]</span>
-            <h2 className={styles.heading}>
-              Let&apos;s create something<br />
-              remarkable together
-            </h2>
+            <AnimatedTitle className={styles.heading}>
+              <span className={styles.headingLine}>START A</span>
+              <span className={styles.headingLine}>STRATEGIC</span>
+              <span className={styles.headingLine}>CONVERSATION</span>
+            </AnimatedTitle>
+            <p className={styles.subheading}>
+              Join hands with Sky Wardens, where innovation meets
+              mission-critical execution.
+            </p>
           </div>
 
           {/* Right Column: Minimal Underline Form */}
@@ -65,7 +73,7 @@ export default function ContactFormSection() {
                 </svg>
                 <h3 className={styles.successTitle}>MESSAGE RECEIVED</h3>
                 <p className={styles.successText}>
-                  Thank you for reaching out. An Anuvyom representative will get
+                  Thank you for reaching out. A Sky Wardens representative will get
                   in touch with you shortly.
                 </p>
                 <button
@@ -114,10 +122,10 @@ export default function ContactFormSection() {
                       defaultValue=""
                       required
                       className={styles.select}
-                      aria-label="Choose subject"
+                      aria-label="Choose an inquiry"
                     >
                       <option value="" disabled>
-                        Choose subject
+                        Choose an inquiry
                       </option>
                       {subjectOptions.map((subj) => (
                         <option key={subj} value={subj}>

@@ -13,15 +13,21 @@ export default function Footer() {
         <div className={styles.top}>
           {/* Brand Column */}
           <div className={styles.brandCol}>
-            <Link href="/" className={styles.brandLogo} aria-label="Anuvyom Home">
+            <Link href="/" className={styles.brandLogo} aria-label="Sky Wardens Home">
               <Image
-                src="/images/logo-white-zoom.webp"
-                alt="Logo"
-                width={44}
-                height={44}
-                className={styles.logoImage}
+                src="/images/New Logo s/Icon.png"
+                alt="Sky Wardens Icon"
+                width={48}
+                height={45}
+                className={styles.logoIcon}
               />
-              <span className={styles.brandName}>ANUVYOM</span>
+              <Image
+                src="/images/New Logo s/Text.png"
+                alt="Sky Wardens"
+                width={188}
+                height={19}
+                className={styles.logoText}
+              />
             </Link>
 
             <p className={styles.brandDescription}>
@@ -34,27 +40,6 @@ export default function Footer() {
               <AnimatedButton href="/contact" size="sm">
                 GET A QUOTE
               </AnimatedButton>
-            </div>
-
-            <div className={styles.locationBlock}>
-              <div className={styles.locationIconWrapper} aria-hidden="true">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="9" />
-                  <circle cx="12" cy="12" r="3" fill="currentColor" />
-                </svg>
-              </div>
-              <p className={styles.addressText}>
-                Address - Add your registered office address here
-              </p>
             </div>
           </div>
 
@@ -123,28 +108,28 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Dotted Divider */}
-        <hr className={styles.divider} aria-hidden="true" />
-
-        {/* Bottom Section: Giant ANUVYOM typography + Meta Credits */}
-        <div className={styles.bottom}>
-          <div className={styles.studioDisplay}>
-            <span className={styles.studioText}>
-              ANUVY
-              <span className={styles.letterO}>
-                O
-                <span className={styles.avatarHolder}>
-                  <Image
-                    src="/images/footer%20Robotics%20img.png"
-                    alt="Robotics"
-                    fill
-                    sizes="(max-width: 768px) 60px, 140px"
-                    className={styles.avatarImg}
-                  />
-                </span>
-              </span>
-              M
-            </span>
+        {/* Middle Info Row: Address on Left, Legal & Copyright on Right */}
+        <div className={styles.middleRow}>
+          <div className={styles.locationBlock}>
+            <div className={styles.locationIconWrapper} aria-hidden="true">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="12" r="3" fill="currentColor" />
+              </svg>
+            </div>
+            <p className={styles.addressText}>
+              Address -<br />
+              Add your registered office address here
+            </p>
           </div>
 
           <div className={styles.metaBlock}>
@@ -161,9 +146,19 @@ export default function Footer() {
             </div>
 
             <p className={styles.creditsLine}>
-              &copy; {new Date().getFullYear()} Anuvyom Alliance Private Limited.
-              All rights reserved.
+              &copy; {new Date().getFullYear()} Sky Wardens Private Limited. All
+              rights reserved.
             </p>
+          </div>
+        </div>
+
+        {/* Single Divider Line */}
+        <hr className={styles.divider} aria-hidden="true" />
+
+        {/* Bottom Section: Giant SKY WARDENS typography */}
+        <div className={styles.bottom}>
+          <div className={styles.studioDisplay}>
+            <span className={styles.studioText}>SKY WARDENS</span>
           </div>
         </div>
       </div>

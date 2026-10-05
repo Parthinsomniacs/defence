@@ -4,6 +4,32 @@
   left: 0;
   right: 0;
   z-index: 300;
+  background-color: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    -webkit-backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.headerScrolled {
+  background-color: rgba(18, 18, 18, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border-subtle);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.headerOpen {
+  background-color: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-bottom-color: transparent;
+  box-shadow: none;
 }
 
 .inner {
@@ -14,6 +40,12 @@
   justify-content: space-between;
   margin: 0 var(--layout-margin);
   padding: 20px var(--layout-padding);
+  transition: padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.headerScrolled .inner {
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 
 /* --- Brand / Logo --- */
@@ -26,20 +58,21 @@
   text-decoration: none;
 }
 
-.logoImage {
-  width: 44px;
-  height: 44px;
+.logoIcon {
+  width: auto;
+  height: 42px;
   object-fit: contain;
   flex-shrink: 0;
   display: block;
 }
 
-.brandName {
-  font-family: var(--font-primary);
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: #ffffff;
+.logoText {
+  width: auto;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+  filter: brightness(0) invert(1);
 }
 
 /* --- Right Actions: 2 Separate Buttons (LETS TALK + Hamburger) --- */
@@ -271,7 +304,7 @@
   height: 48px;
   border-radius: 9999px;
   background-color: var(--color-accent);
-  color: var(--color-surface-deep);
+  color: #ffffff;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease;
 }
 
@@ -528,13 +561,12 @@
     font-size: 1.0625rem;
   }
 
-  .brandName {
-    font-size: 1.25rem;
+  .logoIcon {
+    height: 36px;
   }
 
-  .logoImage {
-    width: 38px;
-    height: 38px;
+  .logoText {
+    height: 15px;
   }
 
   .contactCard {
@@ -593,9 +625,12 @@
     gap: 0.5rem;
   }
 
-  .logoImage {
-    width: 34px;
-    height: 34px;
+  .logoIcon {
+    height: 28px;
+  }
+
+  .logoText {
+    height: 12px;
   }
 
   .actions {

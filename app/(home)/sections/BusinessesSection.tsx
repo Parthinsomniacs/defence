@@ -269,7 +269,9 @@ export default function BusinessesSection() {
           <div ref={headerRef} className={styles.header}>
             <span className={styles.eyebrow}>OUR BUSINESSES</span>
             <AnimatedTitle className={styles.title}>
-              <span className={styles.titleLine}>WE OPERATE WHERE</span>
+              <span className={styles.titleLine}>
+                WE OPERATE <span className={styles.whereWord}>WHERE</span>
+              </span>
               <span className={styles.titleLine}>IMPACT MATTERS</span>
             </AnimatedTitle>
           </div>
@@ -277,7 +279,7 @@ export default function BusinessesSection() {
           {/* Divider & Context Row (Cleanly visible below title) */}
           <div ref={metaRef} className={styles.metaRow}>
             <p className={styles.metaLeft}>
-              Anuvyom operates in sectors where the stakes are too high for
+              Sky Wardens operates in sectors where the stakes are too high for
               anything less than full commitment.
             </p>
             <span className={styles.metaRight}>Critical Domains</span>

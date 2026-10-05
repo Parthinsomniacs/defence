@@ -25,10 +25,10 @@ const capabilities: CapabilityItem[] = [
     pill: "Precision, Protect & Progress",
     image: "/images/business-aerospace.jpg",
     details: {
-      eyebrow: "ABOUT ANUVYOM GROUP",
+      eyebrow: "ABOUT SKY WARDENS GROUP",
       heading: "Precision, Protect & Progress",
       paragraphs: [
-        "As a dynamic and forward-looking company, Anuvyom Alliance Private Limited is redefining the standards of the defence and industrial sectors. With innovation and quality at the core of our operations, we specialise in the manufacturing and supply of advanced military, tactical, and industrial solutions designed to meet the highest standards of performance, reliability, and operational excellence.",
+        "As a dynamic and forward-looking company, Sky Wardens Private Limited is redefining the standards of the defence and industrial sectors. With innovation and quality at the core of our operations, we specialise in the manufacturing and supply of advanced military, tactical, and industrial solutions designed to meet the highest standards of performance, reliability, and operational excellence.",
         "Driven by a vision to address the evolving needs of defence and civil organisations, we have expanded our capabilities into aerospace systems and advanced electronic solutions. Our Aerospace division focuses on drone development and space-oriented technologies, while our Advanced Systems division delivers cutting-edge electronic equipment for both defence and civilian applications, including communication systems and electronic warfare support.",
         "Further strengthening our capabilities, our growing range of products, together with the expertise and offerings of our affiliates, has significantly expanded our portfolio. This enables us to provide a broader, more advanced, and highly diversified range of solutions tailored to the complex requirements of modern industries and strategic sectors.",
         "The company remains committed to excellence at every stage, delivering more than just products by providing dependable solutions that protect, empower, and drive progress for every client. Each offering is developed under stringent quality control standards, ensuring superior performance, durability, and operational readiness.",
@@ -41,10 +41,10 @@ const capabilities: CapabilityItem[] = [
     pill: "An Indigenous Defence Solutions Partner",
     image: "/images/business-tactical.jpg",
     details: {
-      eyebrow: "ABOUT ANUVYOM GROUP",
+      eyebrow: "ABOUT SKY WARDENS GROUP",
       heading: "An Indigenous Defence Solutions Partner",
       paragraphs: [
-        "Anuvyom Alliance Private Limited (AAPL) is an indigenous defence and industrial solutions company focused on innovation, precision, and manufacturing excellence. As part of the Anuvyom Group, we are committed to supporting the evolving requirements of defence forces and allied sectors through reliable, future-ready solutions.",
+        "Sky Wardens Private Limited is an indigenous defence and industrial solutions company focused on innovation, precision, and manufacturing excellence. As part of the Sky Wardens Group, we are committed to supporting the evolving requirements of defence forces and allied sectors through reliable, future-ready solutions.",
         "Our core manufacturing line includes drones, tactical defence products, electronic warfare support systems, communication systems, and high-end petrochem lubricant oils. We are continuously expanding our portfolio to offer more advanced, diversified, and strategically relevant solutions across defence, aerospace, and industrial domains in which every product is developed under stringent quality control standards to ensure consistent performance, durability, and operational readiness.",
       ],
     },
@@ -55,11 +55,11 @@ const capabilities: CapabilityItem[] = [
     pill: "Built on innovation, certifications, and strategic partnerships",
     image: "/images/business-systems.jpg",
     details: {
-      eyebrow: "ABOUT ANUVYOM GROUP",
+      eyebrow: "ABOUT SKY WARDENS GROUP",
       heading: "Built on innovation, certifications, and strategic partnerships",
       paragraphs: [
         "Our commitment to innovation and impact has enabled us to develop over 10+ proprietary product blueprints and file multiple patents across key areas of defence and advanced technology. Furthermore, we have several more patents underway, including 3 patents in ballistics, 1 patent in chemical technologies, and 2 patents in advanced electronics, with additional innovations in progress. Our pioneering achievements also include the launch of India's first drone-dropped fire suppression unit, which is currently in the pilot stage and many more still under testing and review.",
-        "Our strategic partnerships with leading government agencies, DRDO, CSIR (Council of Scientific and Industrial Research), and private-sector leaders continue to strengthen our growth and technological advancement in defence and tactical domains. Anuvyom is also coordinating with Tri-Service Headquarters, including the Army, Navy, and Air Force. Backed by ISO-certified facilities, we are proud to be officially registered vendors with DRDO, the Indian Army (Procurement Trials), and multiple State Police Forces, reinforcing our position as a trusted partner in national security, innovation, and indigenous capability development.",
+        "Our strategic partnerships with leading government agencies, DRDO, CSIR (Council of Scientific and Industrial Research), and private-sector leaders continue to strengthen our growth and technological advancement in defence and tactical domains. Sky Wardens is also coordinating with Tri-Service Headquarters, including the Army, Navy, and Air Force. Backed by ISO-certified facilities, we are proud to be officially registered vendors with DRDO, the Indian Army (Procurement Trials), and multiple State Police Forces, reinforcing our position as a trusted partner in national security, innovation, and indigenous capability development.",
       ],
     },
   },
@@ -90,12 +90,12 @@ export default function DigitalExcellenceSection() {
   return (
     <section
       className={styles.section}
-      aria-label="About Anuvyom Group Capabilities"
+      aria-label="About Sky Wardens Group Capabilities"
     >
       <div className={styles.inner}>
         {/* Eyebrow */}
         <div className={styles.eyebrow}>
-          <span className={styles.eyebrowLine}>ABOUT ANUVYOM GROUP</span>
+          <span className={styles.eyebrowLine}>ABOUT SKY WARDENS GROUP</span>
         </div>
 
         {/* Stack of large typography with focus-depth pill badge */}

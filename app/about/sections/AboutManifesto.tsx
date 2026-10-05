@@ -4,7 +4,7 @@ import styles from "./AboutManifesto.module.css";
 
 export default function AboutManifesto() {
   return (
-    <section className={styles.section} aria-label="About Anuvyom Alliance">
+    <section className={styles.section} aria-label="About Sky Wardens">
       <div className={styles.inner}>
         {/* Header & Narrative Block with Image on Right */}
         <div className={styles.headerBlock}>
@@ -15,7 +15,7 @@ export default function AboutManifesto() {
               </span>
               <AnimatedTitle className={styles.heading}>
                 <span className={styles.headingLine}>ABOUT</span>
-                <span className={styles.headingLine}>ANUVYOM</span>
+                <span className={styles.headingLine}>SKY WARDENS</span>
                 <span className={styles.headingLine}>GROUP</span>
               </AnimatedTitle>
             </div>
@@ -26,7 +26,7 @@ export default function AboutManifesto() {
                 A COMPANY BUILT AROUND CAPABILITY AND TRUST
               </h3>
               <p className={styles.bodyText}>
-                Anuvyom combines engineering focus, manufacturing depth, and
+                Sky Wardens combines engineering focus, manufacturing depth, and
                 disciplined execution to support high-stakes defence and
                 industrial environments.
               </p>
@@ -36,7 +36,7 @@ export default function AboutManifesto() {
           <div className={styles.imageBlock}>
             <Image
               src="/images/aboutus%20page%201.jpg"
-              alt="Anuvyom strategic aerospace and defence capabilities"
+              alt="Sky Wardens strategic aerospace and defence capabilities"
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"
               className={styles.manifestoImage}

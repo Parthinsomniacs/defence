@@ -118,7 +118,7 @@ export default function CtaSection() {
 
             {/* Description */}
             <p className={styles.ctaDescription}>
-              Partner with Anuvyom to engineer and deploy next-generation
+              Partner with Sky Wardens to engineer and deploy next-generation
               autonomous aerospace airframes, multi-domain defence systems, and
               resilient industrial technologies.
             </p>

@@ -15,13 +15,13 @@ interface FaqItem {
 const faqs: FaqItem[] = [
   {
     id: "sectors",
-    question: "What sectors does Anuvyom\noperate in?",
+    question: "What sectors does Sky Wardens\noperate in?",
     answer:
-      "Anuvyom operates across aerospace, defence, advanced systems, and petrochemical sectors.",
+      "Sky Wardens operates across aerospace, defence, advanced systems, and petrochemical sectors.",
   },
   {
     id: "partners",
-    question: "Who does Anuvyom work with?",
+    question: "Who does Sky Wardens work with?",
     answer:
       "We collaborate with national defence forces, premier aerospace laboratories, research institutions, and strategic industrial partners.",
   },
@@ -33,13 +33,13 @@ const faqs: FaqItem[] = [
   },
   {
     id: "delivery",
-    question: "How does Anuvyom approach delivery timelines?",
+    question: "How does Sky Wardens approach delivery timelines?",
     answer:
       "Programs are structured around durable milestones, with capability built to last years and matter for decades.",
   },
   {
     id: "scale",
-    question: "Can Anuvyom scale with sovereign programs?",
+    question: "Can Sky Wardens scale with sovereign programs?",
     answer:
       "Yes. Our industrial capability and partner network scale to support national-level defence and aerospace initiatives.",
   },

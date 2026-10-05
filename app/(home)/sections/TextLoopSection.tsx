@@ -3,10 +3,10 @@ import styles from "./TextLoopSection.module.css";
 
 export default function TextLoopSection() {
   return (
-    <section className={styles.section} aria-label="Anuvyom highlights">
+    <section className={styles.section} aria-label="Sky Wardens highlights">
       <TextLoop
         className={styles.loop}
-        text="Spotlight: Anuvyom Making Headlines"
+        text="Spotlight: Sky Wardens Making Headlines"
         shape="line"
         viewHeight={60}
         speed={50}
@@ -17,7 +17,7 @@ export default function TextLoopSection() {
         fontWeight={600}
         letterSpacing={2}
         uppercase
-        color="var(--color-surface-deep)"
+        color="#ffffff"
         ribbon
         ribbonColor="var(--color-accent)"
         ribbonWidth={50}

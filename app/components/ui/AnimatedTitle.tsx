@@ -37,7 +37,7 @@ export default function AnimatedTitle({
     let split: SplitText | null = null;
 
     const ctx = gsap.context(() => {
-      split = SplitText.create(el, { type: "chars" });
+      split = SplitText.create(el, { type: "words,chars" });
       gsap.from(split.chars, {
         y: 50,
         opacity: 0,

@@ -1,14 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import AnimatedButton from "@/app/components/ui/AnimatedButton";
-import styles from "./Hero.module.css";
+import styles from "./ContactBanner.module.css";
 
 gsap.registerPlugin(SplitText);
 
-export default function Hero() {
+export default function ContactBanner() {
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -19,7 +19,6 @@ export default function Hero() {
     let split: SplitText | null = null;
 
     const ctx = gsap.context(() => {
-      const items = gsap.utils.toArray<HTMLElement>("[data-hero]");
       const title = rootRef.current?.querySelector<HTMLElement>(
         "[data-hero-title]"
       );
@@ -42,21 +41,6 @@ export default function Hero() {
             stagger: reduceMotion ? 0 : 0.08,
           },
           0
-        );
-      }
-
-      // Supporting text + buttons cascade in.
-      if (items.length) {
-        tl.fromTo(
-          items,
-          { y: 30, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: reduceMotion ? 0.01 : 0.8,
-            stagger: reduceMotion ? 0 : 0.12,
-          },
-          reduceMotion ? 0 : 0.35
         );
       }
 
@@ -85,18 +69,16 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={rootRef} className={styles.hero} aria-label="Hero Section">
-      {/* Background cinematic video */}
+    <section ref={rootRef} className={styles.hero} aria-label="Contact Hero Section">
+      {/* Background cinematic banner image */}
       <div className={styles.bgWrapper} aria-hidden="true">
-        <video
-          className={styles.bgVideo}
-          src="/images/hero-video.mp4"
-          poster="/images/hero-editorial.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
+        <Image
+          src="/images/contact-banner.jpg"
+          alt="Tactical operations and strategic communications"
+          fill
+          priority
+          sizes="100vw"
+          className={styles.bgImage}
         />
         <div className={styles.overlay} />
       </div>
@@ -112,24 +94,8 @@ export default function Hero() {
       {/* Main Content Layout */}
       <div className={styles.inner}>
         <div className={styles.content}>
-          {/* Bottom Left Info & CTA */}
-          <div className={styles.leftBlock}>
-            <span className={styles.squareIndicator} aria-hidden="true" data-hero />
-            <p className={styles.headline} data-hero>
-              ENGINEERING<br />
-              STRATEGIC CAPABILITY<br />
-              FOR THE NEXT ERA
-            </p>
-            <div className={styles.buttonGroup} data-hero>
-              <AnimatedButton href="/capabilities">
-                Explore Capabilities
-              </AnimatedButton>
-              <AnimatedButton href="/contact">Contact Sky Wardens</AnimatedButton>
-            </div>
-          </div>
-
-          {/* Bottom Right: Tagline + Giant SKY WARDENS Typography */}
-          <div className={styles.rightBlock}>
+          {/* Tagline + Giant CONTACT US Typography */}
+          <div className={styles.heroBlock}>
             <div className={styles.tagline}>
               <span data-tagline>Aerospace</span>
               <span className={styles.slash} aria-hidden="true" data-tagline>
@@ -146,7 +112,7 @@ export default function Hero() {
               <span data-tagline>Petrochemical</span>
             </div>
             <h1 className={styles.heroTitle} data-hero-title>
-              SKY WARDENS
+              CONTACT US
             </h1>
           </div>
         </div>
@@ -154,4 +120,3 @@ export default function Hero() {
     </section>
   );
 }
-

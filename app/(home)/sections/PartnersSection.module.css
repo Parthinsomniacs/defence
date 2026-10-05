@@ -36,7 +36,7 @@
 }
 
 .eyebrow {
-  color: var(--color-accent);
+  color: #ffffff;
   font-family: var(--font-primary);
   font-size: 0.875rem;
   font-weight: 700;
