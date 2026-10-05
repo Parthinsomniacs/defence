@@ -118,10 +118,19 @@
   transition: -webkit-text-stroke-color 0.4s ease, filter 0.4s ease;
 }
 
-.row:hover .number {
+.rowActive .number {
   -webkit-text-stroke-color: var(--color-accent);
   filter: drop-shadow(0 0 8px rgba(154, 240, 255, 0.3))
     drop-shadow(0 0 22px rgba(77, 217, 255, 0.16));
+}
+
+/* Hover highlight only on devices that truly support hover (desktop). */
+@media (hover: hover) {
+  .row:hover .number {
+    -webkit-text-stroke-color: var(--color-accent);
+    filter: drop-shadow(0 0 8px rgba(154, 240, 255, 0.3))
+      drop-shadow(0 0 22px rgba(77, 217, 255, 0.16));
+  }
 }
 
 /* ========================================

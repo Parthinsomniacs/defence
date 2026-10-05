@@ -1,17 +1,26 @@
 import type { Metadata } from "next";
-import AboutIntro from "./sections/AboutIntro";
-import Values from "./sections/Values";
+import AboutHero from "./sections/AboutHero";
+import PartnerLogosSection from "@/app/(home)/sections/PartnerLogosSection";
+import AboutManifesto from "./sections/AboutManifesto";
+import DigitalExcellenceSection from "./sections/DigitalExcellenceSection";
+import MissionVisionSection from "./sections/MissionVisionSection";
+import ProductsSection from "./sections/ProductsSection";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Learn who we are and how we work.",
+  title: "About Us | Anuvyom Alliance",
+  description:
+    "Engineering strategic sovereign capability across aerospace, defence, advanced systems, and petrochemical sectors.",
 };
 
 export default function AboutPage() {
   return (
     <>
-      <AboutIntro />
-      <Values />
+      <AboutHero />
+      <PartnerLogosSection />
+      <AboutManifesto />
+      <DigitalExcellenceSection />
+      <MissionVisionSection />
+      <ProductsSection />
     </>
   );
 }

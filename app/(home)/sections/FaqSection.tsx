@@ -55,7 +55,6 @@ export default function FaqSection() {
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    if (prefersReduced) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -65,32 +64,43 @@ export default function FaqSection() {
       rows.forEach((row) => {
         const number = row.querySelector<HTMLElement>(`.${styles.number}`);
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: row,
-            start: "top 88%",
-            end: "top 50%",
-            scrub: true,
-          },
-        });
+        // Motion (row lift + fade) only when reduced motion is not requested.
+        if (!prefersReduced) {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: row,
+              start: "top 88%",
+              end: "top 50%",
+              scrub: true,
+            },
+          });
 
-        // Row lifts and brightens from dim to full as it reaches the focus band
-        tl.fromTo(
-          row,
-          { opacity: 0.15, y: 32 },
-          { opacity: 1, y: 0, ease: "none" },
-          0
-        );
-
-        // Ghost number brightens in sync
-        if (number) {
           tl.fromTo(
-            number,
-            { opacity: 0.35 },
-            { opacity: 1, ease: "none" },
+            row,
+            { opacity: 0.15, y: 32 },
+            { opacity: 1, y: 0, ease: "none" },
             0
           );
+
+          if (number) {
+            tl.fromTo(
+              number,
+              { opacity: 0.35 },
+              { opacity: 1, ease: "none" },
+              0
+            );
+          }
         }
+
+        // Blue highlight while the row spans the vertical center of the
+        // viewport. Scroll-driven so it works on touch; always enabled.
+        ScrollTrigger.create({
+          trigger: row,
+          start: "top center",
+          end: "bottom center",
+          onToggle: (self) =>
+            row.classList.toggle(styles.rowActive, self.isActive),
+        });
       });
     }, sectionRef);
 

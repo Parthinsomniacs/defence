@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import Section from "@/app/components/ui/Section";
+import ContactHero from "./sections/ContactHero";
+import ContactFormSection from "./sections/ContactFormSection";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: "Request a briefing.",
+  title: "Contact | Anuvyom Alliance",
+  description:
+    "Direct strategic engagement, institutional defense procurement, aerospace engineering inquiries, and collaboration with Anuvyom Alliance.",
 };
 
 export default function ContactPage() {
   return (
-    <Section id="contact" eyebrow="Contact" title="Request a briefing">
-      <p>Placeholder for the contact page. Add a contact form or details here.</p>
-    </Section>
+    <>
+      <ContactHero />
+      <ContactFormSection />
+    </>
   );
 }
